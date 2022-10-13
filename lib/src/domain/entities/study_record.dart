@@ -1,11 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:floor/floor.dart';
+import 'package:studimer/src/core/utils/constants.dart';
 
+@Entity(tableName: kStudimerTableName)
 class StudyRecord extends Equatable {
-  final String day;
   final int cycleRepeat;
+  final String regTime;
 
-  const StudyRecord({required this.day, required this.cycleRepeat});
+  const StudyRecord({required this.regTime, required this.cycleRepeat});
 
   @override
-  List<Object?> get props => [day, cycleRepeat];
+  List<Object?> get props => [regTime, cycleRepeat];
 }

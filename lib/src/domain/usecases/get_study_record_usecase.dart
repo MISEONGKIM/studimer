@@ -14,6 +14,6 @@ class GetStudyRecordUseCase
   @override
   Future<DataState<List<StudyRecord>>> call(
       {StudyRecordRequestParams? params}) {
-    return _studyRecordRepository.getStudyRecordOneMonth(params!);
+    return _studyRecordRepository.getStudyRecordByMonth(params!);
   }
 }

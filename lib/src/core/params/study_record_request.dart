@@ -1,5 +1,7 @@
 class StudyRecordRequestParams {
-  final String day;
+  final String startTime;
+  final String endTime;
 
-  const StudyRecordRequestParams({required this.day});
+  const StudyRecordRequestParams(
+      {required this.startTime, required this.endTime});
 }
