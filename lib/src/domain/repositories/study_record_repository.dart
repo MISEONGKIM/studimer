@@ -5,5 +5,7 @@ import '../entities/study_record.dart';
 
 abstract class StudyRecordRepository {
   Future<DataState<List<StudyRecord>>> getStudyRecordByMonth(
-      StudyRecordRequestParams params);
+      GetStudyRecordRequestParams params);
+
+  Future<void> saveStudyRecord(SaveStudyRecordRequestParams record);
 }

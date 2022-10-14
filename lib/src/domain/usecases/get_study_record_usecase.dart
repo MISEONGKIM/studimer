@@ -5,7 +5,8 @@ import 'package:studimer/src/domain/entities/study_record.dart';
 import 'package:studimer/src/domain/repositories/study_record_repository.dart';
 
 class GetStudyRecordUseCase
-    implements UseCase<DataState<List<StudyRecord>>, StudyRecordRequestParams> {
+    implements
+        UseCase<DataState<List<StudyRecord>>, GetStudyRecordRequestParams> {
   final StudyRecordRepository _studyRecordRepository;
 
 //repository 생성해서 사용하는 게 아닌 주입받아서 사용 !
@@ -13,7 +14,7 @@ class GetStudyRecordUseCase
 
   @override
   Future<DataState<List<StudyRecord>>> call(
-      {StudyRecordRequestParams? params}) {
+      {GetStudyRecordRequestParams? params}) {
     return _studyRecordRepository.getStudyRecordByMonth(params!);
   }
 }
