@@ -4,12 +4,12 @@ import 'package:studimer/src/presentation/widgets/timer/timer_number.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_picker.dart';
 
 class TimerNumberContainer extends HookWidget {
-  TimerNumberContainer({Key? key, required this.isTimerStart})
+  const TimerNumberContainer({Key? key, required this.isTimerStart})
       : super(key: key);
   final bool isTimerStart;
-  final counter = useState(0);
   @override
   Widget build(BuildContext context) {
+    final counter = useState(0);
     return isTimerStart
         ? TimerNumber(
             counter: counter.value,
