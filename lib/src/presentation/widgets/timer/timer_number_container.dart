@@ -3,7 +3,7 @@ import 'package:studimer/src/core/common/cycle_option_provider_consumer.dart';
 import 'package:studimer/src/data/models/internal/time.dart';
 
 import 'timer_number_picker_con.dart';
-import 'timer_number_textfiled_con.dart';
+import 'timer_number_textfield_con.dart';
 
 class TimerNumberContainer extends StatelessWidget {
   const TimerNumberContainer({Key? key, required this.time}) : super(key: key);
@@ -14,7 +14,7 @@ class TimerNumberContainer extends StatelessWidget {
       builder: (context, provider) {
         return provider.isPicker
             ? TimerNumberPickerCon(time: time)
-            : TimerNumberTextfiledCon(time: time);
+            : TimerNumberTextFieldCon(time: time);
       },
     );
   }

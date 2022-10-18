@@ -21,14 +21,14 @@ class TimerNumberPickerCon extends StatelessWidget {
           time.minuate = newValue;
         },
         value: time.minuate,
-        maxValueForPicker: 60,
+        maxValueForPicker: 59,
       ),
       TimerNumberPicker(
         onChange: (int newValue) {
           time.second = newValue;
         },
         value: time.second,
-        maxValueForPicker: 60,
+        maxValueForPicker: 59,
       )
     ]);
   }
