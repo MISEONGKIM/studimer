@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:studimer/src/core/common/study_cycle_provodier_consumer.dart';
+import 'package:studimer/src/core/common/cycle_option_provider_consumer.dart';
+import 'package:studimer/src/data/models/internal/time.dart';
 
 import 'timer_number_picker_con.dart';
 import 'timer_number_textfiled_con.dart';
 
 class TimerNumberContainer extends StatelessWidget {
-  const TimerNumberContainer({Key? key}) : super(key: key);
-
+  const TimerNumberContainer({Key? key, required this.time}) : super(key: key);
+  final Time time;
   @override
   Widget build(BuildContext context) {
-    return StudyCyclePrvdConsumer(
+    return CycleOptionPrvdConsumer(
       builder: (context, provider) {
         return provider.isPicker
-            ? const TimerNumberPickerCon()
-            : const TimerNumberTextfiledCon();
+            ? TimerNumberPickerCon(time: time)
+            : TimerNumberTextfiledCon(time: time);
       },
     );
   }

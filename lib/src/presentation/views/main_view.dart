@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studimer/src/core/common/cycle_option_provider_consumer.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_widget.dart';
 
 class MainView extends StatelessWidget {
@@ -12,14 +13,19 @@ class MainView extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: const [
-            TimerWidget(
-              title: '공부 시간',
-            ),
-            TimerWidget(title: '쉬는 시간')
-          ],
-        ),
+        child: CycleOptionPrvdConsumer(
+            builder: (context, provider) => Column(
+                  children: [
+                    TimerWidget(
+                      title: '공부 시간',
+                      time: provider.oneCycle.studyTime,
+                    ),
+                    TimerWidget(
+                      title: '쉬는 시간',
+                      time: provider.oneCycle.restTime,
+                    )
+                  ],
+                )),
       ),
     );
   }
