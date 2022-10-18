@@ -1,10 +1,9 @@
 import 'notice.dart';
-import 'time.dart';
 
 class StudyCycle {
   int? id;
-  Time studyTime = Time.zero;
-  Time restTime = Time.zero;
+  Duration studyTime = const Duration(hours: 1);
+  Duration restTime = const Duration(hours: 0);
   int? repeat = 1;
   Notice? notice = Notice.noticeList[0];
 

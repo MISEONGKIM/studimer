@@ -18,11 +18,11 @@ class MainView extends StatelessWidget {
                   children: [
                     TimerWidget(
                       title: '공부 시간',
-                      time: provider.oneCycle.studyTime,
+                      time: provider.oneCycle.studyTime!,
                     ),
                     TimerWidget(
                       title: '쉬는 시간',
-                      time: provider.oneCycle.restTime,
+                      time: provider.oneCycle.restTime!,
                     )
                   ],
                 )),

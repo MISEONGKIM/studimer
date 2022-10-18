@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:studimer/src/data/models/internal/time.dart';
+import 'package:provider/provider.dart';
+import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_container.dart';
 
 class TimerWidget extends StatelessWidget {
-  const TimerWidget({Key? key, required this.title, required this.time})
-      : super(key: key);
+  const TimerWidget({
+    Key? key,
+    required this.title,
+    required this.time,
+  }) : super(key: key);
   final String title;
-  final Time time;
+  final Duration time;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,9 +27,7 @@ class TimerWidget extends StatelessWidget {
                 color: Colors.white12,
                 borderRadius: BorderRadius.circular(7),
               ),
-              child: TimerNumberContainer(
-                time: time,
-              ))
+              child: TimerNumberContainer(time: time))
         ]));
   }
 }

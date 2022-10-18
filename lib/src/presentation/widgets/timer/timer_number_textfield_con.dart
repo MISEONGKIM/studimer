@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:studimer/src/data/models/internal/time.dart';
+import 'package:studimer/src/core/common/timer_provider_consumer.dart';
 import 'timer_number_textfield.dart';
 
 class TimerNumberTextFieldCon extends StatelessWidget {
-  const TimerNumberTextFieldCon({Key? key, required this.time})
-      : super(key: key);
-  final Time time;
+  const TimerNumberTextFieldCon({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      TimerNumberTextField(
-        counter: time.hour,
-        maxValue: 12,
-      ),
-      TimerNumberTextField(
-        counter: time.minuate,
-        maxValue: 59,
-      ),
-      TimerNumberTextField(
-        counter: time.second,
-        maxValue: 59,
-      )
-    ]);
+    return TimerPrvdConsumer(
+        builder: (context, provider) => Row(children: [
+              TimerNumberTextField(
+                counter: provider.hour,
+                maxValue: 12,
+              ),
+              TimerNumberTextField(
+                counter: provider.minuate,
+                maxValue: 59,
+              ),
+              TimerNumberTextField(
+                counter: provider.second,
+                maxValue: 59,
+              )
+            ]));
   }
 }
