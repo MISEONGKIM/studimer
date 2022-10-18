@@ -6,7 +6,6 @@ class TimerWidget extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    final isTimerStart = false;
     return Container(
         margin: const EdgeInsets.only(bottom: 20),
         child: Column(children: [
@@ -21,18 +20,7 @@ class TimerWidget extends StatelessWidget {
                 color: Colors.white12,
                 borderRadius: BorderRadius.circular(7),
               ),
-              child: Row(children: [
-                TimerNumberContainer(
-                  isTimerStart: isTimerStart,
-                  maxValueForPicker: 12,
-                ),
-                TimerNumberContainer(
-                  isTimerStart: isTimerStart,
-                ),
-                TimerNumberContainer(
-                  isTimerStart: isTimerStart,
-                )
-              ]))
+              child: const TimerNumberContainer())
         ]));
   }
 }

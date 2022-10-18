@@ -1,6 +1,4 @@
-import 'package:equatable/equatable.dart';
-
-class Notice extends Equatable {
+class Notice {
   final int noticeCode;
   final String noticeName;
   final bool isUse;
@@ -14,7 +12,4 @@ class Notice extends Equatable {
       {required this.noticeCode,
       required this.noticeName,
       required this.isUse});
-
-  @override
-  List<Object?> get props => [noticeCode, noticeName, isUse];
 }
