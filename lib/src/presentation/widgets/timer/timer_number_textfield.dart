@@ -18,7 +18,6 @@ class TimerNumberTextField extends StatelessWidget {
   _fieldFocusChange(BuildContext context, FocusNode currentFocus) {
     currentFocus.unfocus();
     final provider = cycleOptionProvider(context);
-    provider.setIsPicker(true);
     provider.setFocusOn(FocusNum.none);
   }
 

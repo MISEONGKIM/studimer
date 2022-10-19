@@ -4,7 +4,6 @@ class TimerProvider extends ChangeNotifier {
   int hour = 0;
   int minuate = 0;
   int second = 0;
-  bool isPicker = true;
   final Function setTime;
 
   TimerProvider(Duration duration, this.setTime) {

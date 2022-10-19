@@ -21,7 +21,6 @@ class TimerNumberPicker extends StatelessWidget {
     return GestureDetector(
         onTap: () {
           final provider = cycleOptionProvider(context);
-          provider.setIsPicker(false);
           provider.setFocusOn(focusNum);
         },
         child: NumberPicker(

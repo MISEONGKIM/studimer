@@ -4,16 +4,10 @@ import 'package:studimer/src/data/models/internal/study_cycle.dart';
 
 class CycleOptionProvider extends ChangeNotifier {
   late StudyCycle oneCycle = StudyCycle();
-  bool isPicker = true;
   FocusNum focusOn = FocusNum.none;
 
   setFocusOn(FocusNum value) {
     focusOn = value;
-    notifyListeners();
-  }
-
-  setIsPicker(bool value) {
-    isPicker = value;
     notifyListeners();
   }
 
