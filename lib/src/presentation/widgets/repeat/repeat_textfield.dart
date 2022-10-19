@@ -14,8 +14,12 @@ class RepeatTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CycleOptionPrvdConsumer(
-        builder: (context, provider) => SizedBox(
-            width: 100,
+        builder: (context, provider) => Container(
+            margin: const EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+              color: Colors.white12,
+              borderRadius: BorderRadius.circular(7),
+            ),
             child: TextFormField(
               textInputAction: TextInputAction.done,
               onFieldSubmitted: (term) {

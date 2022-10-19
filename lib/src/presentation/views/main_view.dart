@@ -43,11 +43,12 @@ class MainView extends StatelessWidget {
                           focusNum: FocusNum.resttime,
                         )),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         _enableCheck(provider.focusOn, FocusNum.repeat,
-                            const RepeatWidget()),
+                            const Expanded(child: RepeatWidget())),
                         _enableCheck(provider.focusOn, FocusNum.notice,
-                            const NoticeWidget())
+                            const Expanded(child: NoticeWidget()))
                       ],
                     )
                   ],
