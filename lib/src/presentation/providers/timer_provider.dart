@@ -5,25 +5,31 @@ class TimerProvider extends ChangeNotifier {
   int minuate = 0;
   int second = 0;
   bool isPicker = true;
+  final Function setTime;
 
-  TimerProvider(Duration duration) {
+  TimerProvider(Duration duration, this.setTime) {
     hour = duration.inHours;
     minuate = duration.inMinutes.remainder(60);
     second = duration.inSeconds.remainder(60);
   }
 
+  _notify() {
+    setTime(Duration(hours: hour, minutes: minuate, seconds: second));
+    notifyListeners();
+  }
+
   setHour(value) {
     hour = value;
-    notifyListeners();
+    _notify();
   }
 
   setMinuate(value) {
     minuate = value;
-    notifyListeners();
+    _notify();
   }
 
   setSecond(value) {
     second = value;
-    notifyListeners();
+    _notify();
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studimer/src/core/common/cycle_option_provider_consumer.dart';
+import 'package:studimer/src/core/common/provider_consumer.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_widget.dart';
 
 class MainView extends StatelessWidget {
@@ -18,11 +18,13 @@ class MainView extends StatelessWidget {
                   children: [
                     TimerWidget(
                       title: '공부 시간',
-                      time: provider.oneCycle.studyTime!,
+                      time: provider.oneCycle.studyTime,
+                      setTime: provider.setStudyTime,
                     ),
                     TimerWidget(
                       title: '쉬는 시간',
-                      time: provider.oneCycle.restTime!,
+                      time: provider.oneCycle.restTime,
+                      setTime: provider.setRestTime,
                     )
                   ],
                 )),
