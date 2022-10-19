@@ -29,7 +29,10 @@ class RepeatTextField extends StatelessWidget {
                 provider.setFocusOn(FocusNum.repeat);
               },
               initialValue: provider.oneCycle.repeat.toString(),
-              onChanged: (value) => provider.setRepeat(int.parse(value)),
+              onChanged: (value) {
+                final v = value == '' ? 0 : int.parse(value);
+                provider.setRepeat(v);
+              },
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
             )));

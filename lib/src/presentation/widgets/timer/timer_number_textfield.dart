@@ -39,7 +39,10 @@ class TimerNumberTextField extends StatelessWidget {
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             initialValue: value.toString(),
-            onChanged: (value) => onChange(int.parse(value)),
+            onChanged: (value) {
+              final v = value == '' ? 0 : int.parse(value);
+              onChange(v);
+            },
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)));
   }
 }
