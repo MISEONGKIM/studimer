@@ -12,17 +12,24 @@ class NoticeListContainer extends StatelessWidget {
     return CycleOptionPrvdConsumer(
       builder: (context, provider) => provider.focusOn == FocusNum.notice
           ? NoticeList(initValue: provider.oneCycle.notice!)
-          : Container(
-              margin: const EdgeInsets.only(top: 10),
-              decoration: BoxDecoration(
-                color: Colors.white12,
-                borderRadius: BorderRadius.circular(7),
-              ),
-              child: GestureDetector(
-                  onTap: () {
-                    provider.setFocusOn(FocusNum.notice);
-                  },
-                  child: Text(provider.oneCycle.notice!.noticeName))),
+          : GestureDetector(
+              onTap: () {
+                provider.setFocusOn(FocusNum.notice);
+              },
+              child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white12,
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  child: Text(provider.oneCycle.notice!.noticeName,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold)))),
     );
   }
 }

@@ -6,10 +6,23 @@ class NoticeList extends StatelessWidget {
   final Notice initValue;
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: Notice.noticeList
-          .map<Widget>((e) => Card(child: Text(e.noticeName)))
-          .toList(),
-    );
+    return Container(
+        height: 250,
+        padding: const EdgeInsets.all(10),
+        child: ListView(
+          children: Notice.noticeList
+              .map<Widget>((e) => ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: const Size.fromHeight(50),
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blueGrey[400]),
+                  child: Text(
+                    e.noticeName,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  )))
+              .toList(),
+        ));
   }
 }

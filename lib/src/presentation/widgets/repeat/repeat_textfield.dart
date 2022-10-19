@@ -22,6 +22,7 @@ class RepeatTextField extends StatelessWidget {
             ),
             child: TextFormField(
               textInputAction: TextInputAction.done,
+              autofocus: true,
               onFieldSubmitted: (term) {
                 _fieldFocusChange(context, _focus, provider);
               },
@@ -30,7 +31,7 @@ class RepeatTextField extends StatelessWidget {
               },
               initialValue: provider.oneCycle.repeat.toString(),
               onChanged: (value) {
-                final v = value == '' ? 0 : int.parse(value);
+                final v = value == '' ? 1 : int.parse(value);
                 provider.setRepeat(v);
               },
               keyboardType: TextInputType.number,
