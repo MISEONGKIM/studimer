@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studimer/src/core/common/provider_listen_false.dart';
+import 'package:studimer/src/core/resources/type.dart';
 
 class TimerNumberTextField extends StatelessWidget {
   TimerNumberTextField(
@@ -16,15 +17,17 @@ class TimerNumberTextField extends StatelessWidget {
 
   _fieldFocusChange(BuildContext context, FocusNode currentFocus) {
     currentFocus.unfocus();
-    cycleOptionProvider(context).setIsPicker(true);
+    final provider = cycleOptionProvider(context);
+    provider.setIsPicker(true);
+    provider.setFocusOn(FocusNum.none);
   }
 
   @override
   Widget build(BuildContext context) {
-    String max = maxValue.toString();
     return Expanded(
         child: TextFormField(
             focusNode: _focus,
+            autofocus: true,
             inputFormatters: [
               LengthLimitingTextInputFormatter(2),
               // FilteringTextInputFormatter.allow(

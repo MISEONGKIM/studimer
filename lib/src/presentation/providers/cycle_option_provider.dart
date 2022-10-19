@@ -1,9 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/data/models/internal/study_cycle.dart';
 
 class CycleOptionProvider extends ChangeNotifier {
   late StudyCycle oneCycle = StudyCycle();
   bool isPicker = true;
+  FocusNum focusOn = FocusNum.none;
+
+  setFocusOn(FocusNum value) {
+    focusOn = value;
+    notifyListeners();
+  }
 
   setIsPicker(bool value) {
     isPicker = value;
@@ -11,15 +18,14 @@ class CycleOptionProvider extends ChangeNotifier {
   }
 
   setStudyTime(Duration newTime) {
-    print(
-      newTime.inHours,
-    );
-    print(newTime.inMinutes);
-    print(newTime.inSeconds);
     oneCycle.studyTime = newTime;
   }
 
   setRestTime(Duration newTime) {
     oneCycle.restTime = newTime;
+  }
+
+  setRepeat(int value) {
+    oneCycle.repeat = value;
   }
 }

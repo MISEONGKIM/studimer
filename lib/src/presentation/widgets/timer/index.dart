@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
+import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_container.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_picker.dart';
@@ -11,10 +12,12 @@ class TimerWidget extends StatelessWidget {
       {Key? key,
       required this.title,
       required this.time,
+      required this.focusNum,
       required this.setTime})
       : super(key: key);
   final String title;
   final Duration time;
+  final FocusNum focusNum;
   final void Function(Duration newTime) setTime;
   @override
   Widget build(BuildContext context) {
@@ -41,11 +44,13 @@ class TimerWidget extends StatelessWidget {
                         ? TimerNumberPicker(
                             value: value,
                             maxValue: maxValue,
-                            onChange: onChange)
+                            onChange: onChange,
+                            focusNum: focusNum)
                         : TimerNumberTextField(
                             value: value,
                             maxValue: maxValue,
-                            onChange: onChange);
+                            onChange: onChange,
+                          );
                 return ChangeNotifierProvider(
                     create: (_) => TimerProvider(time, setTime),
                     child: TimerNumberContainer(childWidget: childWidget));
