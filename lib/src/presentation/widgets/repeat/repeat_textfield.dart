@@ -33,6 +33,7 @@ class RepeatTextField extends StatelessWidget {
                 final v = value == '' ? 1 : int.parse(value);
                 provider.setRepeat(v);
               },
+              readOnly: provider.timerStatus == TimerStatus.start,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
             )));

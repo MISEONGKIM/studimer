@@ -40,7 +40,8 @@ class TimerWidget extends StatelessWidget {
                         {required int value,
                         required int maxValue,
                         required void Function(int) onChange}) =>
-                    provider.focusOn == FocusNum.none
+                    provider.focusOn == FocusNum.none &&
+                            provider.timerStatus != TimerStatus.start
                         ? TimerNumberPicker(
                             value: value,
                             maxValue: maxValue,

@@ -9,6 +9,7 @@ class CycleOptionProvider extends ChangeNotifier {
   TimerStatus timerStatus = TimerStatus.cancle;
 
   setFocusOn(FocusNum value) {
+    if (value != FocusNum.none && timerStatus == TimerStatus.start) return;
     focusOn = value;
     notifyListeners();
   }
