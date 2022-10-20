@@ -1,5 +1,7 @@
+import 'package:floor/floor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:studimer/src/core/resources/type.dart';
+import 'package:studimer/src/data/models/internal/notice.dart';
 import 'package:studimer/src/data/models/internal/study_cycle.dart';
 
 class CycleOptionProvider extends ChangeNotifier {
@@ -21,5 +23,9 @@ class CycleOptionProvider extends ChangeNotifier {
 
   setRepeat(int value) {
     oneCycle.repeat = value;
+  }
+
+  setNotice(Notice value) {
+    oneCycle.notice = value;
   }
 }

@@ -22,7 +22,6 @@ class RepeatTextField extends StatelessWidget {
             ),
             child: TextFormField(
               textInputAction: TextInputAction.done,
-              autofocus: true,
               onFieldSubmitted: (term) {
                 _fieldFocusChange(context, _focus, provider);
               },
