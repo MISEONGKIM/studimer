@@ -52,7 +52,8 @@ class MainView extends StatelessWidget {
                             const Expanded(child: NoticeWidget()))
                       ],
                     ),
-                    const TimerControllButton()
+                    _enableCheck(provider.focusOn, FocusNum.none,
+                        const TimerControllButton())
                   ],
                 )),
       ),
