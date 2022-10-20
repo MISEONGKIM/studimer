@@ -17,17 +17,17 @@ class TimerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  setHour(value) {
+  setHour(int value) {
     hour = value;
     _notify();
   }
 
-  setMinuate(value) {
+  setMinuate(int value) {
     minuate = value;
     _notify();
   }
 
-  setSecond(value) {
+  setSecond(int value) {
     second = value;
     _notify();
   }

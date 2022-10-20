@@ -4,6 +4,7 @@ import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/presentation/widgets/notice/index.dart';
 import 'package:studimer/src/presentation/widgets/repeat/index.dart';
 import 'package:studimer/src/presentation/widgets/timer/index.dart';
+import 'package:studimer/src/presentation/widgets/timer/timer_controll_button.dart';
 
 class MainView extends StatelessWidget {
   const MainView({Key? key}) : super(key: key);
@@ -50,7 +51,8 @@ class MainView extends StatelessWidget {
                         _enableCheck(provider.focusOn, FocusNum.notice,
                             const Expanded(child: NoticeWidget()))
                       ],
-                    )
+                    ),
+                    const TimerControllButton()
                   ],
                 )),
       ),

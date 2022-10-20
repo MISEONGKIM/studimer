@@ -15,14 +15,15 @@ class TimerNumberTextField extends StatelessWidget {
   final void Function(int) onChange;
   final FocusNode _focus = FocusNode();
 
-  _fieldFocusChange(BuildContext context, FocusNode currentFocus) {
+  _fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, dynamic provider) {
     currentFocus.unfocus();
-    final provider = cycleOptionProvider(context);
     provider.setFocusOn(FocusNum.none);
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = cycleOptionProvider(context);
     return Expanded(
         child: TextFormField(
             focusNode: _focus,
@@ -34,7 +35,7 @@ class TimerNumberTextField extends StatelessWidget {
             ],
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
-              _fieldFocusChange(context, _focus);
+              _fieldFocusChange(context, _focus, provider);
             },
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
@@ -43,6 +44,7 @@ class TimerNumberTextField extends StatelessWidget {
               final v = value == '' ? 0 : int.parse(value);
               onChange(v);
             },
+            readOnly: provider.timerStatus == TimerStatus.start,
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)));
   }
 }
