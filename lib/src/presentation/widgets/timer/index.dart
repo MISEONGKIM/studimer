@@ -29,35 +29,31 @@ class TimerWidget extends StatelessWidget {
             style: const TextStyle(
                 color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
           ),
-          Container(
-              margin: const EdgeInsets.only(top: 10),
-              decoration: BoxDecoration(
-                color: Colors.white12,
-                borderRadius: BorderRadius.circular(7),
-              ),
-              child: CycleOptionPrvdConsumer(builder: (context, provider) {
-                childWidget(
-                        {required int value,
-                        required int maxValue,
-                        required void Function(int) onChange}) =>
-                    provider.focusOn == FocusNum.none &&
-                            provider.timerStatus != TimerStatus.start
-                        ? TimerNumberPicker(
-                            value: value,
-                            maxValue: maxValue,
-                            onChange: onChange,
-                            focusNum: focusNum)
-                        : TimerNumberTextField(
-                            value: value,
-                            maxValue: maxValue,
-                            onChange: onChange,
-                          );
-                return ChangeNotifierProvider(
-                    create: (_) => timerProvider,
-                    child: provider.timerStatus == TimerStatus.start
-                        ? const TimerTextContainer()
-                        : TimerNumberContainer(childWidget: childWidget));
-              }))
+          CycleOptionPrvdConsumer(builder: (context, provider) {
+            childWidget(
+                    {required int value,
+                    required int maxValue,
+                    required void Function(int) onChange}) =>
+                provider.focusOn == FocusNum.none &&
+                        provider.timerStatus != TimerStatus.start
+                    ? TimerNumberPicker(
+                        value: value,
+                        maxValue: maxValue,
+                        onChange: onChange,
+                        focusNum: focusNum)
+                    : TimerNumberTextField(
+                        value: value,
+                        maxValue: maxValue,
+                        onChange: onChange,
+                      );
+            return ChangeNotifierProvider(
+                create: (_) => timerProvider,
+                child: provider.timerStatus == TimerStatus.start
+                    ? TimerTextContainer(
+                        isRunning: provider.isStudyMode,
+                      )
+                    : TimerNumberContainer(childWidget: childWidget));
+          })
         ]));
   }
 }

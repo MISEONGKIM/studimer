@@ -11,7 +11,13 @@ class TimerNumberContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TimerPrvdConsumer(
-        builder: (context, provider) => Row(children: [
+        builder: (context, provider) => Container(
+            margin: const EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+              color: Colors.white12,
+              borderRadius: BorderRadius.circular(7),
+            ),
+            child: Row(children: [
               childWidget(
                 onChange: (int newValue) {
                   provider.setHour(newValue);
@@ -33,6 +39,6 @@ class TimerNumberContainer extends StatelessWidget {
                 value: provider.second,
                 maxValue: 59,
               )
-            ]));
+            ])));
   }
 }
