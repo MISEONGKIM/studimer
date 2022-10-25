@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
 import 'package:studimer/src/core/resources/type.dart';
+import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/widgets/notice/index.dart';
 import 'package:studimer/src/presentation/widgets/repeat/index.dart';
 import 'package:studimer/src/presentation/widgets/timer/index.dart';
@@ -23,39 +24,46 @@ class MainView extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: CycleOptionPrvdConsumer(
-            builder: (context, provider) => Column(
-                  children: [
-                    _enableCheck(
-                        provider.focusOn,
-                        FocusNum.studytime,
-                        TimerWidget(
-                            title: '공부 시간',
-                            time: provider.oneCycle.studyTime,
-                            setTime: provider.setStudyTime,
-                            focusNum: FocusNum.studytime)),
-                    _enableCheck(
-                        provider.focusOn,
-                        FocusNum.resttime,
-                        TimerWidget(
-                          title: '쉬는 시간',
-                          time: provider.oneCycle.restTime,
-                          setTime: provider.setRestTime,
-                          focusNum: FocusNum.resttime,
-                        )),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _enableCheck(provider.focusOn, FocusNum.repeat,
-                            const Expanded(child: RepeatWidget())),
-                        _enableCheck(provider.focusOn, FocusNum.notice,
-                            const Expanded(child: NoticeWidget()))
-                      ],
-                    ),
-                    _enableCheck(provider.focusOn, FocusNum.none,
-                        const TimerControllButton())
-                  ],
+        child: CycleOptionPrvdConsumer(builder: (context, provider) {
+          final TimerProvider studyTmProvider = TimerProvider(
+              provider.oneCycle.studyTime, provider.setStudyTime, true);
+
+          final TimerProvider restTmProvider = TimerProvider(
+              provider.oneCycle.restTime, provider.setStudyTime, false);
+
+          return Column(children: [
+            _enableCheck(
+                provider.focusOn,
+                FocusNum.studytime,
+                TimerWidget(
+                    title: '공부 시간',
+                    timerProvider: studyTmProvider,
+                    focusNum: FocusNum.studytime)),
+            _enableCheck(
+                provider.focusOn,
+                FocusNum.resttime,
+                TimerWidget(
+                  title: '쉬는 시간',
+                  timerProvider: restTmProvider,
+                  focusNum: FocusNum.resttime,
                 )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _enableCheck(provider.focusOn, FocusNum.repeat,
+                    const Expanded(child: RepeatWidget())),
+                _enableCheck(provider.focusOn, FocusNum.notice,
+                    const Expanded(child: NoticeWidget()))
+              ],
+            ),
+            _enableCheck(
+                provider.focusOn,
+                FocusNum.none,
+                TimerControllButton(
+                    studyTmProvider: studyTmProvider,
+                    restTmProvider: restTmProvider))
+          ]);
+        }),
       ),
     );
   }

@@ -7,6 +7,12 @@ class CycleOptionProvider extends ChangeNotifier {
   late StudyCycle oneCycle = StudyCycle();
   FocusNum focusOn = FocusNum.none;
   TimerStatus timerStatus = TimerStatus.cancle;
+  bool isStudyMode = true;
+  bool isTimerBtnDisabled = true;
+
+  CycleOptionProvider() {
+    checkIsTimeBtnDisabled();
+  }
 
   setFocusOn(FocusNum value) {
     if (value != FocusNum.none && timerStatus == TimerStatus.start) return;
@@ -14,12 +20,20 @@ class CycleOptionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  checkIsTimeBtnDisabled() {
+    isTimerBtnDisabled = oneCycle.restTime == Duration.zero &&
+        oneCycle.studyTime == Duration.zero;
+    notifyListeners();
+  }
+
   setStudyTime(Duration newTime) {
     oneCycle.studyTime = newTime;
+    checkIsTimeBtnDisabled();
   }
 
   setRestTime(Duration newTime) {
     oneCycle.restTime = newTime;
+    checkIsTimeBtnDisabled();
   }
 
   setRepeat(int value) {

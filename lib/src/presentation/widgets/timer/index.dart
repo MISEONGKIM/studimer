@@ -7,18 +7,18 @@ import 'package:studimer/src/presentation/widgets/timer/timer_number_container.d
 import 'package:studimer/src/presentation/widgets/timer/timer_number_picker.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_textfield.dart';
 
+import 'timer_text_container.dart';
+
 class TimerWidget extends StatelessWidget {
-  const TimerWidget(
-      {Key? key,
-      required this.title,
-      required this.time,
-      required this.focusNum,
-      required this.setTime})
-      : super(key: key);
+  const TimerWidget({
+    Key? key,
+    required this.title,
+    required this.focusNum,
+    required this.timerProvider,
+  }) : super(key: key);
   final String title;
-  final Duration time;
   final FocusNum focusNum;
-  final void Function(Duration newTime) setTime;
+  final TimerProvider timerProvider;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,8 +53,10 @@ class TimerWidget extends StatelessWidget {
                             onChange: onChange,
                           );
                 return ChangeNotifierProvider(
-                    create: (_) => TimerProvider(time, setTime),
-                    child: TimerNumberContainer(childWidget: childWidget));
+                    create: (_) => timerProvider,
+                    child: provider.timerStatus == TimerStatus.start
+                        ? const TimerTextContainer()
+                        : TimerNumberContainer(childWidget: childWidget));
               }))
         ]));
   }

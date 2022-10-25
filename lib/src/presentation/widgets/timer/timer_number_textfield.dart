@@ -44,7 +44,6 @@ class TimerNumberTextField extends StatelessWidget {
               final v = value == '' ? 0 : int.parse(value);
               onChange(v);
             },
-            readOnly: provider.timerStatus == TimerStatus.start,
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)));
   }
 }
