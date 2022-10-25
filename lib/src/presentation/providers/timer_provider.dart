@@ -8,9 +8,9 @@ class TimerProvider extends ChangeNotifier {
   int second = 0;
   final Function setTime;
   late Timer _timer;
-  bool z = true;
+  bool isRunning = false;
 
-  TimerProvider(Duration duration, this.setTime, this.z) {
+  TimerProvider(Duration duration, this.setTime) {
     durationConvert(duration);
   }
 
@@ -47,6 +47,7 @@ class TimerProvider extends ChangeNotifier {
 
   start(Duration time, {required Function() cancelNextExec}) {
     int seconds = time.inSeconds;
+    isRunning = true;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       seconds -= 1;
       print(seconds);
@@ -62,8 +63,18 @@ class TimerProvider extends ChangeNotifier {
     _timer.cancel();
   }
 
-  cancle() {
+  cancel() {
     _timer.cancel();
     //시간 값 초기화 ?
   }
+}
+
+class StudyTimerProvider extends TimerProvider {
+  StudyTimerProvider(Duration duration, Function setTime)
+      : super(duration, setTime);
+}
+
+class RestTimerProvider extends TimerProvider {
+  RestTimerProvider(Duration duration, Function setTime)
+      : super(duration, setTime);
 }

@@ -6,8 +6,8 @@ import 'package:studimer/src/data/models/internal/study_cycle.dart';
 class CycleOptionProvider extends ChangeNotifier {
   late StudyCycle oneCycle = StudyCycle();
   FocusNum focusOn = FocusNum.none;
-  TimerStatus timerStatus = TimerStatus.cancle;
-  bool isStudyMode = true;
+  TimerStatus timerStatus = TimerStatus.cancel;
+
   bool isTimerBtnDisabled = true;
 
   CycleOptionProvider() {
@@ -21,8 +21,7 @@ class CycleOptionProvider extends ChangeNotifier {
   }
 
   checkIsTimeBtnDisabled() {
-    isTimerBtnDisabled = oneCycle.restTime == Duration.zero &&
-        oneCycle.studyTime == Duration.zero;
+    isTimerBtnDisabled = oneCycle.studyTime == Duration.zero;
     notifyListeners();
   }
 

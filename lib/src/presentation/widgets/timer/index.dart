@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
 import 'package:studimer/src/core/resources/type.dart';
-import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_container.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_picker.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_textfield.dart';
 
 import 'timer_text_container.dart';
 
-class TimerWidget extends StatelessWidget {
+class TimerWidget<T> extends StatelessWidget {
   const TimerWidget({
     Key? key,
     required this.title,
     required this.focusNum,
-    required this.timerProvider,
   }) : super(key: key);
   final String title;
   final FocusNum focusNum;
-  final TimerProvider timerProvider;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,13 +42,9 @@ class TimerWidget extends StatelessWidget {
                         maxValue: maxValue,
                         onChange: onChange,
                       );
-            return ChangeNotifierProvider(
-                create: (_) => timerProvider,
-                child: provider.timerStatus == TimerStatus.start
-                    ? TimerTextContainer(
-                        isRunning: provider.isStudyMode,
-                      )
-                    : TimerNumberContainer(childWidget: childWidget));
+            return provider.timerStatus == TimerStatus.start
+                ? const TimerTextContainer()
+                : TimerNumberContainer(childWidget: childWidget);
           })
         ]));
   }

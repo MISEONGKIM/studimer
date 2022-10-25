@@ -10,7 +10,7 @@ class TimerNumberContainer extends StatelessWidget {
       required void Function(int) onChange}) childWidget;
   @override
   Widget build(BuildContext context) {
-    return TimerPrvdConsumer(
+    return TimerPrvdConsumer<>(
         builder: (context, provider) => Container(
             margin: const EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
