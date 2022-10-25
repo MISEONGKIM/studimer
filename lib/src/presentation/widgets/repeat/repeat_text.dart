@@ -10,11 +10,15 @@ class RepeatText extends StatelessWidget {
     return Container(
         width: double.infinity,
         margin: const EdgeInsets.only(top: 10),
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
           color: Colors.white12,
           borderRadius: BorderRadius.circular(7),
         ),
-        child: RepeatText(provider: provider));
+        child: Text(
+          provider.oneCycle.repeat.toString(),
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        ));
   }
 }
