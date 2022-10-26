@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:studimer/src/core/common/provider_consumer.dart';
 
 class TimerNumberContainer extends StatelessWidget {
-  const TimerNumberContainer({Key? key, required this.childWidget})
+  const TimerNumberContainer(
+      {Key? key, required this.childWidget, required this.consumer})
       : super(key: key);
   final Widget Function(
       {required int value,
       required int maxValue,
       required void Function(int) onChange}) childWidget;
+  final Function consumer;
   @override
   Widget build(BuildContext context) {
-    return TimerPrvdConsumer<>(
+    return consumer(
         builder: (context, provider) => Container(
             margin: const EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
@@ -22,21 +23,21 @@ class TimerNumberContainer extends StatelessWidget {
                 onChange: (int newValue) {
                   provider.setHour(newValue);
                 },
-                value: provider.hour,
+                value: provider.t.hour,
                 maxValue: 12,
               ),
               childWidget(
                 onChange: (int newValue) {
                   provider.setMinuate(newValue);
                 },
-                value: provider.minuate,
+                value: provider.t.minuate,
                 maxValue: 59,
               ),
               childWidget(
                 onChange: (int newValue) {
                   provider.setSecond(newValue);
                 },
-                value: provider.second,
+                value: provider.t.second,
                 maxValue: 59,
               )
             ])));

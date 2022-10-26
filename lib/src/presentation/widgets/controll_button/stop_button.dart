@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/common/provider_listen_false.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
@@ -9,7 +8,7 @@ class StopButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = cycleOptionProvider(context);
+    final provider = cycleOptionProviderOf(context);
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.all(20),

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
+import 'package:studimer/src/core/common/provider_listen_false.dart';
 import 'package:studimer/src/core/resources/type.dart';
-import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
+import 'package:studimer/src/presentation/providers/timer_provider.dart';
 
 class StartButton extends StatelessWidget {
   const StartButton({Key? key}) : super(key: key);
-  _onPressed(CycleOptionProvider provider) {
-    provider.studyTmProvider.start(provider.oneCycle.studyTime,
-        cancelNextExec: () => provider.setTimerStatus(
+  _onPressed(BuildContext context) {
+    final cProvider = cycleOptionProviderOf(context);
+    timerProviderOf<StudyTimerProvider>(context).start(
+        cProvider.oneCycle.studyTime,
+        cancelNextExec: () => cProvider.setTimerStatus(
             TimerStatus.cancel)); //이거 고쳐야하는데 study에서 0되면 휴식모드로 넘거야해
 
-    provider.setTimerStatus(TimerStatus.start);
+    cProvider.setTimerStatus(TimerStatus.start);
   }
 
   @override
@@ -25,7 +28,7 @@ class StartButton extends StatelessWidget {
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                 backgroundColor: Colors.green[600]),
             onPressed:
-                provider.isTimerBtnDisabled ? null : () => _onPressed(provider),
+                provider.isTimerBtnDisabled ? null : () => _onPressed(context),
             child: const Text('You Can Do It !')));
   }
 }

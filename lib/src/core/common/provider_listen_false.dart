@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
 import 'package:studimer/src/presentation/providers/timer_provider.dart';
 
-Function cycleOptionProvider = (BuildContext context) =>
+CycleOptionProvider cycleOptionProviderOf(BuildContext context) =>
     Provider.of<CycleOptionProvider>(context, listen: false);
 
-Function timerProvider = (BuildContext context) =>
-    Provider.of<TimerProvider>(context, listen: false);
+T timerProviderOf<T extends TimerProvider>(BuildContext context) =>
+    Provider.of<T>(context, listen: false);

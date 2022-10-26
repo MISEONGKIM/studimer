@@ -1,80 +1,64 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:studimer/src/data/models/internal/timer.dart';
 
 class TimerProvider extends ChangeNotifier {
-  int hour = 0;
-  int minuate = 0;
-  int second = 0;
-  final Function setTime;
-  late Timer _timer;
-  bool isRunning = false;
+  late TimerModel t;
 
-  TimerProvider(Duration duration, this.setTime) {
-    durationConvert(duration);
-  }
-
-  durationConvert(Duration duration) {
-    hour = duration.inHours;
-    minuate = duration.inMinutes.remainder(60);
-    second = duration.inSeconds.remainder(60);
-    notifyListeners();
-  }
+  TimerProvider(this.t);
 
   _notify() {
-    setTime(Duration(hours: hour, minutes: minuate, seconds: second));
+    t.setTime(Duration(hours: t.hour, minutes: t.minuate, seconds: t.second));
     notifyListeners();
   }
 
-  String lpadZeroFormatter(int value) {
-    return value > 9 ? value.toString() : '0$value';
-  }
-
-  setHour(int value) {
-    hour = value;
+  void setHour(int value) {
+    t.hour = value;
     _notify();
   }
 
-  setMinuate(int value) {
-    minuate = value;
+  void setMinuate(int value) {
+    t.minuate = value;
     _notify();
   }
 
-  setSecond(int value) {
-    second = value;
+  void setSecond(int value) {
+    t.second = value;
     _notify();
   }
 
-  start(Duration time, {required Function() cancelNextExec}) {
+  void start(Duration time, {required Function() cancelNextExec}) {
     int seconds = time.inSeconds;
-    isRunning = true;
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    t.isRunning = true;
+    t.timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       seconds -= 1;
       print(seconds);
-      durationConvert(Duration(seconds: seconds));
+      t.durationConvert(Duration(seconds: seconds));
+      notifyListeners();
       if (seconds == 0) {
         stop(cancelNextExec: cancelNextExec);
       }
     });
   }
 
-  stop({required Function() cancelNextExec}) {
+  void stop({required Function() cancelNextExec}) {
+    if (!t.timer.isActive) return;
+    t.timer.cancel();
     cancelNextExec();
-    _timer.cancel();
   }
 
-  cancel() {
-    _timer.cancel();
+  void cancel() {
+    if (!t.timer.isActive) return;
+    t.timer.cancel();
     //시간 값 초기화 ?
   }
 }
 
 class StudyTimerProvider extends TimerProvider {
-  StudyTimerProvider(Duration duration, Function setTime)
-      : super(duration, setTime);
+  StudyTimerProvider(TimerModel t) : super(t);
 }
 
 class RestTimerProvider extends TimerProvider {
-  RestTimerProvider(Duration duration, Function setTime)
-      : super(duration, setTime);
+  RestTimerProvider(TimerModel t) : super(t);
 }

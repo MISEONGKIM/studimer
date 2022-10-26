@@ -12,9 +12,11 @@ class TimerWidget<T> extends StatelessWidget {
     Key? key,
     required this.title,
     required this.focusNum,
+    required this.consumer,
   }) : super(key: key);
   final String title;
   final FocusNum focusNum;
+  final TimerPrvdConsumer Function(dynamic builder) consumer;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,8 +45,13 @@ class TimerWidget<T> extends StatelessWidget {
                         onChange: onChange,
                       );
             return provider.timerStatus == TimerStatus.start
-                ? const TimerTextContainer()
-                : TimerNumberContainer(childWidget: childWidget);
+                ? TimerTextContainer(
+                    consumer: consumer,
+                  )
+                : TimerNumberContainer(
+                    childWidget: childWidget,
+                    consumer: consumer,
+                  );
           })
         ]));
   }

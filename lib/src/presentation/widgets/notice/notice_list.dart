@@ -8,7 +8,7 @@ class NoticeList extends StatelessWidget {
   final Notice initValue;
   @override
   Widget build(BuildContext context) {
-    final provider = cycleOptionProvider(context);
+    final provider = cycleOptionProviderOf(context);
     return Container(
         height: 250,
         padding: const EdgeInsets.all(10),

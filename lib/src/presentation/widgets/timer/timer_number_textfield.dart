@@ -23,7 +23,7 @@ class TimerNumberTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = cycleOptionProvider(context);
+    final provider = cycleOptionProviderOf(context);
     return Expanded(
         child: TextFormField(
             focusNode: _focus,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
 import 'package:studimer/src/core/resources/type.dart';
+import 'package:studimer/src/data/models/internal/timer.dart';
 import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/widgets/controll_button/index.dart';
 import 'package:studimer/src/presentation/widgets/notice/index.dart';
@@ -31,20 +32,31 @@ class MainView extends StatelessWidget {
                 provider.focusOn,
                 FocusNum.studytime,
                 ChangeNotifierProvider(
-                    create: (_) => StudyTimerProvider(
-                        provider.oneCycle.studyTime, provider.setStudyTime),
-                    child: const TimerWidget(
-                        title: '공부 시간', focusNum: FocusNum.studytime))),
+                    create: (_) => StudyTimerProvider(TimerModel(
+                        provider.oneCycle.studyTime, provider.setStudyTime)),
+                    builder: (context, child) {
+                      return TimerWidget(
+                          title: '공부 시간',
+                          focusNum: FocusNum.studytime,
+                          consumer: (builder) =>
+                              TimerPrvdConsumer<StudyTimerProvider>(
+                                  builder: builder));
+                    })),
             _enableCheck(
                 provider.focusOn,
                 FocusNum.resttime,
                 ChangeNotifierProvider(
-                    create: (_) => RestTimerProvider(
-                        provider.oneCycle.restTime, provider.setRestTime),
-                    child: const TimerWidget(
-                      title: '쉬는 시간',
-                      focusNum: FocusNum.resttime,
-                    ))),
+                    create: (_) => RestTimerProvider(TimerModel(
+                        provider.oneCycle.restTime, provider.setRestTime)),
+                    builder: (context, child) {
+                      return TimerWidget(
+                        title: '쉬는 시간',
+                        focusNum: FocusNum.resttime,
+                        consumer: (builder) =>
+                            TimerPrvdConsumer<RestTimerProvider>(
+                                builder: builder),
+                      );
+                    })),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
