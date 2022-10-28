@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
 import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_container.dart';
@@ -16,7 +17,7 @@ class TimerWidget<T> extends StatelessWidget {
   }) : super(key: key);
   final String title;
   final FocusNum focusNum;
-  final TimerPrvdConsumer Function(dynamic builder) consumer;
+  final Widget Function({dynamic builder}) consumer;
   @override
   Widget build(BuildContext context) {
     return Container(

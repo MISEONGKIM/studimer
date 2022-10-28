@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TimerTextContainer extends StatelessWidget {
   const TimerTextContainer({Key? key, required this.consumer})
       : super(key: key);
-  final Function consumer;
+  final Widget Function({dynamic builder}) consumer;
   @override
   Widget build(BuildContext context) {
     return consumer(builder: (context, provider) {

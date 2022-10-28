@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studimer/src/core/utils/constants.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
+import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/views/main_view.dart';
 
 void main() {
@@ -19,8 +20,13 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       title: kMaterialAppTitle,
-      home: ChangeNotifierProvider(
-          create: (_) => CycleOptionProvider(), child: const MainView()),
+      home: MultiProvider(providers: [
+        ChangeNotifierProvider(
+          create: (_) => CycleOptionProvider(),
+        ),
+        ChangeNotifierProvider(create: (_) => StudyTimerProvider()),
+        ChangeNotifierProvider(create: (_) => RestTimerProvider()),
+      ], child: const MainView()),
     );
   }
 }

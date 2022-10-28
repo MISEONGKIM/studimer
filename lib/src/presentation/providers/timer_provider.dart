@@ -6,8 +6,6 @@ import 'package:studimer/src/data/models/internal/timer.dart';
 class TimerProvider extends ChangeNotifier {
   late TimerModel t;
 
-  TimerProvider(this.t);
-
   _notify() {
     t.setTime(Duration(hours: t.hour, minutes: t.minuate, seconds: t.second));
     notifyListeners();
@@ -56,9 +54,13 @@ class TimerProvider extends ChangeNotifier {
 }
 
 class StudyTimerProvider extends TimerProvider {
-  StudyTimerProvider(TimerModel t) : super(t);
+  setModel(TimerModel t) {
+    super.t = t;
+  }
 }
 
 class RestTimerProvider extends TimerProvider {
-  RestTimerProvider(TimerModel t) : super(t);
+  setModel(TimerModel t) {
+    super.t = t;
+  }
 }

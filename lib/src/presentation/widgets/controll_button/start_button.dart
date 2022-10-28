@@ -11,7 +11,7 @@ class StartButton extends StatelessWidget {
     timerProviderOf<StudyTimerProvider>(context).start(
         cProvider.oneCycle.studyTime,
         cancelNextExec: () => cProvider.setTimerStatus(
-            TimerStatus.cancel)); //이거 고쳐야하는데 study에서 0되면 휴식모드로 넘거야해
+            TimerStatus.cancel)); //이거 고쳐야하는데 study에서 0되면 rest모드로 넘거야해
 
     cProvider.setTimerStatus(TimerStatus.start);
   }

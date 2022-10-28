@@ -8,7 +8,7 @@ class TimerNumberContainer extends StatelessWidget {
       {required int value,
       required int maxValue,
       required void Function(int) onChange}) childWidget;
-  final Function consumer;
+  final Widget Function({dynamic builder}) consumer;
   @override
   Widget build(BuildContext context) {
     return consumer(

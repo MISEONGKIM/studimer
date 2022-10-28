@@ -16,7 +16,7 @@ class CycleOptionPrvdConsumer extends StatelessWidget {
 
 class TimerPrvdConsumer<T extends TimerProvider> extends StatelessWidget {
   const TimerPrvdConsumer({Key? key, required this.builder}) : super(key: key);
-  final Widget Function(BuildContext, TimerProvider) builder;
+  final Widget Function(BuildContext, T) builder;
   @override
   Widget build(BuildContext context) {
     return Consumer<T>(
