@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
 import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_container.dart';

@@ -5,14 +5,13 @@ import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
 import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/views/main_view.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -2,18 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
 import 'package:studimer/src/core/common/provider_listen_false.dart';
 import 'package:studimer/src/core/resources/type.dart';
+import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
 import 'package:studimer/src/presentation/providers/timer_provider.dart';
 
 class StartButton extends StatelessWidget {
   const StartButton({Key? key}) : super(key: key);
-  _onPressed(BuildContext context) {
-    final cProvider = cycleOptionProviderOf(context);
-    timerProviderOf<StudyTimerProvider>(context).start(
-        cProvider.oneCycle.studyTime,
-        cancelNextExec: () => cProvider.setTimerStatus(
-            TimerStatus.cancel)); //이거 고쳐야하는데 study에서 0되면 rest모드로 넘거야해
+  _studyTimerStart(BuildContext context, CycleOptionProvider cProvider) {
+    timerProviderOf<StudyTimerProvider>(context)
+        .start(cProvider.oneCycle.studyTime, cancelNextExec: () {
+      if (cProvider.oneCycle.repeat == 1 &&
+          cProvider.oneCycle.restTime == Duration.zero) {
+        cProvider.setTimerStatus(TimerStatus.cancel);
+        return;
+      }
+      _restTimerStart(context, cProvider);
+    });
+  }
 
+  _restTimerStart(BuildContext context, CycleOptionProvider cProvider) {
+    timerProviderOf<RestTimerProvider>(context)
+        .start(cProvider.oneCycle.restTime, cancelNextExec: () {
+      if (cProvider.oneCycle.repeat == 1) {
+        cProvider.setTimerStatus(TimerStatus.cancel);
+      }
+      _studyTimerStart(context, cProvider);
+    });
+  }
+
+  _onPressed(BuildContext context) {
+    CycleOptionProvider cProvider = cycleOptionProviderOf(context);
     cProvider.setTimerStatus(TimerStatus.start);
+    _studyTimerStart(context, cProvider);
   }
 
   @override

@@ -1,12 +1,8 @@
-import 'dart:async';
-
 class TimerModel {
   int hour = 0;
   int minuate = 0;
   int second = 0;
   final Function setTime;
-  late Timer timer;
-  bool isRunning = false;
 
   TimerModel(Duration duration, this.setTime) {
     durationConvert(duration);
@@ -20,5 +16,9 @@ class TimerModel {
     hour = duration.inHours;
     minuate = duration.inMinutes.remainder(60);
     second = duration.inSeconds.remainder(60);
+  }
+
+  Duration getDuration() {
+    return Duration(hours: hour, minutes: minuate, seconds: second);
   }
 }
