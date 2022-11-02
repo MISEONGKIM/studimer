@@ -8,10 +8,10 @@ class CancelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
             foregroundColor: Colors.white,
             textStyle:
-                const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             backgroundColor: Colors.brown),
         onPressed: () => onPressed(),
         child: const Text(
