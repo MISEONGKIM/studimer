@@ -9,15 +9,15 @@ import 'package:studimer/src/data/models/internal/timer.dart';
 
 class TimerProvider extends ChangeNotifier {
   late TimerModel t;
-  bool isRunning = false;
-
-  final String sharedPreferKey;
-  final String isolateName;
-  final int timerId;
-  late final SharedPreferences prefs;
   late Timer timer;
   late Duration initDuration;
+  bool isRunning = false;
+
   ReceivePort port = ReceivePort();
+  final String isolateName;
+  final String sharedPreferKey;
+  final int timerId;
+  late final SharedPreferences prefs;
 
   TimerProvider(
       {required this.sharedPreferKey,
@@ -77,16 +77,17 @@ class TimerProvider extends ChangeNotifier {
     });
   }
 
-  void stop() {
-    isRunning = false;
+  void stop(bool isStop) {
     if (!timer.isActive) return;
-    timer.cancel();
-    notifyListeners();
+
+    //  isStop ?  : timer.cancel();
   }
 
   void cancel({required Function cancelNextExec}) {
     stop();
+    isRunning = false;
     cancelNextExec();
+    notifyListeners();
   }
 }
 

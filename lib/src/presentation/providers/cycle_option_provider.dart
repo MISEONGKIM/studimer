@@ -8,6 +8,7 @@ class CycleOptionProvider extends ChangeNotifier {
   FocusNum focusOn = FocusNum.none;
   TimerStatus timerStatus = TimerStatus.cancel;
   late int repeatCount;
+  bool isTimerStop = false;
 
   bool isTimerBtnDisabled = true;
 
@@ -51,6 +52,11 @@ class CycleOptionProvider extends ChangeNotifier {
 
   setTimerStatus(TimerStatus value) {
     timerStatus = value;
+    notifyListeners();
+  }
+
+  setIsTimerStop() {
+    isTimerStop = !isTimerStop;
     notifyListeners();
   }
 }

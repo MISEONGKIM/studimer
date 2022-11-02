@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class StopButton extends StatelessWidget {
-  const StopButton({Key? key, required this.onPressed}) : super(key: key);
+  const StopButton(
+      {Key? key, required this.buttonText, required this.onPressed})
+      : super(key: key);
+  final String buttonText;
   final Function onPressed;
 
   @override
@@ -14,6 +17,6 @@ class StopButton extends StatelessWidget {
                 const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             backgroundColor: Colors.blueGrey),
         onPressed: () => onPressed(),
-        child: const Text('중지'));
+        child: Text(buttonText));
   }
 }

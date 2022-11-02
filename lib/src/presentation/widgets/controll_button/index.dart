@@ -55,9 +55,10 @@ class ControllButtonContainer extends StatelessWidget {
         cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel));
   }
 
-  _stopOnPressed(BuildContext context) {
-    timerProviderOf<StudyTimerProvider>(context).stop();
-    timerProviderOf<RestTimerProvider>(context).stop();
+  _stopOnPressed(BuildContext context, CycleOptionProvider cProvider) {
+    cProvider.setIsTimerStop();
+    timerProviderOf<StudyTimerProvider>(context).stop(cProvider.isTimerStop);
+    timerProviderOf<RestTimerProvider>(context).stop(cProvider.isTimerStop);
   }
 
   @override
@@ -73,7 +74,9 @@ class ControllButtonContainer extends StatelessWidget {
                     children: [
                         Expanded(
                             child: StopButton(
-                                onPressed: () => _stopOnPressed(context))),
+                                buttonText: provider.isTimerStop ? '재시작' : '중지',
+                                onPressed: () =>
+                                    _stopOnPressed(context, provider))),
                         Expanded(
                             child: CancelButton(
                                 onPressed: () => _cancelOnPressed(context)))
