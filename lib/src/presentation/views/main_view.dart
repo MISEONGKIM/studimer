@@ -27,10 +27,10 @@ class MainView extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(20),
         child: CycleOptionPrvdConsumer(builder: (context, provider) {
-          timerProviderOf<StudyTimerProvider>(context).t =
-              TimerModel(provider.oneCycle.studyTime, provider.setStudyTime);
-          timerProviderOf<RestTimerProvider>(context).t =
-              TimerModel(provider.oneCycle.restTime, provider.setRestTime);
+          timerProviderOf<StudyTimerProvider>(context).setTimerModel(
+              TimerModel(provider.oneCycle.studyTime, provider.setStudyTime));
+          timerProviderOf<RestTimerProvider>(context).setTimerModel(
+              TimerModel(provider.oneCycle.restTime, provider.setRestTime));
           return Column(children: [
             _enableCheck(
                 provider.focusOn,

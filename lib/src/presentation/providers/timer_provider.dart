@@ -1,20 +1,21 @@
+import 'dart:async';
 import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studimer/src/data/models/internal/timer.dart';
 
 class TimerProvider extends ChangeNotifier {
-  late final TimerModel t;
+  late TimerModel t;
   bool isRunning = false;
 
   final String sharedPreferKey;
   final String isolateName;
   final int timerId;
   late final SharedPreferences prefs;
+  late Timer timer;
   ReceivePort port = ReceivePort();
 
   TimerProvider(
@@ -31,8 +32,6 @@ class TimerProvider extends ChangeNotifier {
       port.sendPort,
       isolateName,
     );
-
-    AndroidAlarmManager.initialize();
   }
 
   _notify() async {
@@ -40,6 +39,10 @@ class TimerProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(sharedPreferKey, t.getDuration().inSeconds);
     notifyListeners();
+  }
+
+  void setTimerModel(TimerModel model) {
+    t = model;
   }
 
   void setHour(int value) {
@@ -57,41 +60,31 @@ class TimerProvider extends ChangeNotifier {
     _notify();
   }
 
-  void start(Duration time, {required Function() cancelNextExec}) async {
+  void start(Duration time, {required Function cancelNextExec}) async {
     int seconds = time.inSeconds;
     isRunning = true;
 
-    await AndroidAlarmManager.periodic(
-      const Duration(seconds: 1),
-      timerId,
-      () async {
-        seconds -= 1;
-        print(seconds);
-        t.durationConvert(Duration(seconds: seconds));
-
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setInt(timerId.toString(), seconds);
-        print('pref : ' + prefs.getInt(timerId.toString()).toString());
-
-        notifyListeners();
-        if (seconds == 0) {
-          stop(cancelNextExec: cancelNextExec);
-        }
-      },
-      exact: true,
-      wakeup: true,
-    );
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      seconds -= 1;
+      print(seconds);
+      t.durationConvert(Duration(seconds: seconds));
+      notifyListeners();
+      if (seconds == 0) {
+        cancel(cancelNextExec: cancelNextExec);
+      }
+    });
   }
 
-  void stop({required Function() cancelNextExec}) async {
-    SendPort? uiSendPort = IsolateNameServer.lookupPortByName(isolateName);
-    uiSendPort?.send(null);
-    AndroidAlarmManager.cancel(timerId);
-    await prefs.remove(timerId.toString());
+  void stop() async {
+    if (!timer.isActive) return;
+    timer.cancel();
+  }
+
+  void cancel({required Function cancelNextExec}) {
+    if (!timer.isActive) return;
+    timer.cancel();
     cancelNextExec();
   }
-
-  void cancel() {}
 }
 
 class StudyTimerProvider extends TimerProvider {

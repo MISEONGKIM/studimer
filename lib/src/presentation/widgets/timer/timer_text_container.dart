@@ -10,7 +10,7 @@ class TimerTextContainer extends StatelessWidget {
       final style = TextStyle(
           fontSize: 70,
           fontWeight: FontWeight.bold,
-          color: provider.t.isRunning ? Colors.orangeAccent : Colors.white);
+          color: provider.isRunning ? Colors.orangeAccent : Colors.white);
 
       return Container(
           width: double.infinity,
