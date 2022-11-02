@@ -16,6 +16,7 @@ class TimerProvider extends ChangeNotifier {
   final int timerId;
   late final SharedPreferences prefs;
   late Timer timer;
+  late Duration initDuration;
   ReceivePort port = ReceivePort();
 
   TimerProvider(
@@ -43,6 +44,7 @@ class TimerProvider extends ChangeNotifier {
 
   void setTimerModel(TimerModel model) {
     t = model;
+    initDuration = model.getDuration();
   }
 
   void setHour(int value) {
@@ -60,7 +62,7 @@ class TimerProvider extends ChangeNotifier {
     _notify();
   }
 
-  void start(Duration time, {required Function cancelNextExec}) async {
+  void start(Duration time, {required Function cancelNextExec}) {
     int seconds = time.inSeconds;
     isRunning = true;
 
@@ -75,14 +77,16 @@ class TimerProvider extends ChangeNotifier {
     });
   }
 
-  void stop() async {
+  void stop() {
+    isRunning = false;
+    t.durationConvert(initDuration);
     if (!timer.isActive) return;
     timer.cancel();
+    notifyListeners();
   }
 
   void cancel({required Function cancelNextExec}) {
-    if (!timer.isActive) return;
-    timer.cancel();
+    stop();
     cancelNextExec();
   }
 }

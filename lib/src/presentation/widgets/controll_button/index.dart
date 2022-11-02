@@ -30,6 +30,7 @@ class ControllButtonContainer extends StatelessWidget {
         .start(cProvider.oneCycle.restTime, cancelNextExec: () {
       if (cProvider.oneCycle.repeat == 1) {
         cProvider.setTimerStatus(TimerStatus.cancel);
+        return;
       }
       _studyTimerStart(context, cProvider);
     });
