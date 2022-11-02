@@ -16,7 +16,7 @@ class RepeatText extends StatelessWidget {
           borderRadius: BorderRadius.circular(7),
         ),
         child: Text(
-          provider.oneCycle.repeat.toString(),
+          provider.repeatCount.toString(),
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
         ));

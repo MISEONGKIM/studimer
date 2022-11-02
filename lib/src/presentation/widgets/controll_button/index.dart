@@ -16,9 +16,13 @@ class ControllButtonContainer extends StatelessWidget {
   _studyTimerStart(BuildContext context, CycleOptionProvider cProvider) {
     timerProviderOf<StudyTimerProvider>(context)
         .start(cProvider.oneCycle.studyTime, cancelNextExec: () {
-      if (cProvider.oneCycle.repeat == 1 &&
-          cProvider.oneCycle.restTime == Duration.zero) {
-        cProvider.setTimerStatus(TimerStatus.cancel);
+      if (cProvider.oneCycle.restTime == Duration.zero) {
+        if (cProvider.repeatCount == 1) {
+          cProvider.setTimerStatus(TimerStatus.cancel);
+          return;
+        }
+        cProvider.setReapeatCount(cProvider.repeatCount - 1);
+        _studyTimerStart(context, cProvider);
         return;
       }
       _restTimerStart(context, cProvider);
@@ -28,10 +32,11 @@ class ControllButtonContainer extends StatelessWidget {
   _restTimerStart(BuildContext context, CycleOptionProvider cProvider) {
     timerProviderOf<RestTimerProvider>(context)
         .start(cProvider.oneCycle.restTime, cancelNextExec: () {
-      if (cProvider.oneCycle.repeat == 1) {
+      if (cProvider.repeatCount == 1) {
         cProvider.setTimerStatus(TimerStatus.cancel);
         return;
       }
+      cProvider.setReapeatCount(cProvider.repeatCount - 1);
       _studyTimerStart(context, cProvider);
     });
   }
@@ -39,6 +44,7 @@ class ControllButtonContainer extends StatelessWidget {
   _startOnPressed(BuildContext context) {
     CycleOptionProvider cProvider = cycleOptionProviderOf(context);
     cProvider.setTimerStatus(TimerStatus.start);
+    cProvider.setReapeatCount(cProvider.oneCycle.repeat);
     _studyTimerStart(context, cProvider);
   }
 

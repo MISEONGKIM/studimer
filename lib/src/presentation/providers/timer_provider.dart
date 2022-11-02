@@ -79,7 +79,6 @@ class TimerProvider extends ChangeNotifier {
 
   void stop() {
     isRunning = false;
-    t.durationConvert(initDuration);
     if (!timer.isActive) return;
     timer.cancel();
     notifyListeners();

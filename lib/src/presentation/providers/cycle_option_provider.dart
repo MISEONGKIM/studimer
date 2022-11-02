@@ -7,6 +7,7 @@ class CycleOptionProvider extends ChangeNotifier {
   late StudyCycle oneCycle = StudyCycle();
   FocusNum focusOn = FocusNum.none;
   TimerStatus timerStatus = TimerStatus.cancel;
+  late int repeatCount;
 
   bool isTimerBtnDisabled = true;
 
@@ -22,6 +23,11 @@ class CycleOptionProvider extends ChangeNotifier {
 
   checkIsTimeBtnDisabled() {
     isTimerBtnDisabled = oneCycle.studyTime == Duration.zero;
+    notifyListeners();
+  }
+
+  setReapeatCount(value) {
+    repeatCount = value;
     notifyListeners();
   }
 
