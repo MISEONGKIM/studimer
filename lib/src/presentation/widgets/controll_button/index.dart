@@ -13,16 +13,21 @@ class ControllButtonContainer extends StatelessWidget {
   const ControllButtonContainer({
     Key? key,
   }) : super(key: key);
+
+  _cancelNextExec(BuildContext context, CycleOptionProvider cProvider) {
+    if (cProvider.repeatCount == 1) {
+      cProvider.setTimerStatus(TimerStatus.cancel);
+      return;
+    }
+    cProvider.setReapeatCount(cProvider.repeatCount - 1);
+    _studyTimerStart(context, cProvider);
+  }
+
   _studyTimerStart(BuildContext context, CycleOptionProvider cProvider) {
     timerProviderOf<StudyTimerProvider>(context)
         .start(cProvider.oneCycle.studyTime, cancelNextExec: () {
       if (cProvider.oneCycle.restTime == Duration.zero) {
-        if (cProvider.repeatCount == 1) {
-          cProvider.setTimerStatus(TimerStatus.cancel);
-          return;
-        }
-        cProvider.setReapeatCount(cProvider.repeatCount - 1);
-        _studyTimerStart(context, cProvider);
+        _cancelNextExec(context, cProvider);
         return;
       }
       _restTimerStart(context, cProvider);
@@ -30,15 +35,9 @@ class ControllButtonContainer extends StatelessWidget {
   }
 
   _restTimerStart(BuildContext context, CycleOptionProvider cProvider) {
-    timerProviderOf<RestTimerProvider>(context)
-        .start(cProvider.oneCycle.restTime, cancelNextExec: () {
-      if (cProvider.repeatCount == 1) {
-        cProvider.setTimerStatus(TimerStatus.cancel);
-        return;
-      }
-      cProvider.setReapeatCount(cProvider.repeatCount - 1);
-      _studyTimerStart(context, cProvider);
-    });
+    timerProviderOf<RestTimerProvider>(context).start(
+        cProvider.oneCycle.restTime,
+        cancelNextExec: () => _cancelNextExec(context, cProvider));
   }
 
   _startOnPressed(BuildContext context) {
@@ -54,7 +53,11 @@ class ControllButtonContainer extends StatelessWidget {
         cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel));
     timerProviderOf<RestTimerProvider>(context).cancel(
         cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel));
-    cProvider.setTimerStatus(TimerStatus.cancel);
+  }
+
+  _stopOnPressed(BuildContext context) {
+    timerProviderOf<StudyTimerProvider>(context).stop();
+    timerProviderOf<RestTimerProvider>(context).stop();
   }
 
   @override
@@ -68,7 +71,9 @@ class ControllButtonContainer extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                        Expanded(child: StopButton()),
+                        Expanded(
+                            child: StopButton(
+                                onPressed: () => _stopOnPressed(context))),
                         Expanded(
                             child: CancelButton(
                                 onPressed: () => _cancelOnPressed(context)))

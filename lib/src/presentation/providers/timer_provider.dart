@@ -35,16 +35,16 @@ class TimerProvider extends ChangeNotifier {
     );
   }
 
+  void setTimerModel(TimerModel model) {
+    t = model;
+    initDuration = model.getDuration();
+  }
+
   _notify() async {
     t.setTime(t.getDuration());
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(sharedPreferKey, t.getDuration().inSeconds);
     notifyListeners();
-  }
-
-  void setTimerModel(TimerModel model) {
-    t = model;
-    initDuration = model.getDuration();
   }
 
   void setHour(int value) {

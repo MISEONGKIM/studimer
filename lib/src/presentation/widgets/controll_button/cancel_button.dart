@@ -15,7 +15,7 @@ class CancelButton extends StatelessWidget {
             backgroundColor: Colors.brown),
         onPressed: () => onPressed(),
         child: const Text(
-          '포기는 배추 셀 때나\n하는 말이다 !',
+          '포기',
           textAlign: TextAlign.center,
         ));
   }
