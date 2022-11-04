@@ -7,10 +7,10 @@ class TimerTextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return consumer(builder: (context, provider) {
-      final style = TextStyle(
-          fontSize: 70,
-          fontWeight: FontWeight.bold,
-          color: provider.isRunning ? Colors.orangeAccent : Colors.white);
+      const style = TextStyle(
+        fontSize: 70,
+        fontWeight: FontWeight.bold,
+      );
 
       return Container(
           width: double.infinity,
@@ -18,13 +18,13 @@ class TimerTextContainer extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text(provider.t.lpadZeroFormatter(provider.t.hour), style: style),
-            Text(
+            const Text(
               ' : ',
               style: style,
             ),
             Text(provider.t.lpadZeroFormatter(provider.t.minuate),
                 style: style),
-            Text(
+            const Text(
               ' : ',
               style: style,
             ),

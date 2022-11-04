@@ -5,13 +5,14 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:studimer/src/data/models/internal/alram.dart';
 import 'package:studimer/src/data/models/internal/timer.dart';
 
 class TimerProvider extends ChangeNotifier {
   late TimerModel t;
   late Timer timer;
   late Duration initDuration;
-  bool isRunning = false;
+  late Function cancelNextExec;
 
   ReceivePort port = ReceivePort();
   final String isolateName;
@@ -62,10 +63,9 @@ class TimerProvider extends ChangeNotifier {
     _notify();
   }
 
-  void start(Duration time, {required Function cancelNextExec}) {
+  void start(Duration time, {required Function cancelNextExecFor}) {
     int seconds = time.inSeconds;
-    isRunning = true;
-
+    cancelNextExec = cancelNextExecFor;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       seconds -= 1;
       print(seconds);
@@ -79,13 +79,14 @@ class TimerProvider extends ChangeNotifier {
 
   void stop(bool isStop) {
     if (!timer.isActive) return;
-
-    //  isStop ?  : timer.cancel();
+    isStop
+        ? start(t.getDuration(), cancelNextExecFor: cancelNextExec)
+        : timer.cancel();
   }
 
   void cancel({required Function cancelNextExec}) {
-    stop();
-    isRunning = false;
+    if (!timer.isActive) return;
+    timer.cancel();
     cancelNextExec();
     notifyListeners();
   }

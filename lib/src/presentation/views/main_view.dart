@@ -5,7 +5,7 @@ import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/data/models/internal/timer.dart';
 import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/widgets/controll_button/index.dart';
-import 'package:studimer/src/presentation/widgets/notice/index.dart';
+import 'package:studimer/src/presentation/widgets/alram/index.dart';
 import 'package:studimer/src/presentation/widgets/repeat/index.dart';
 import 'package:studimer/src/presentation/widgets/timer/index.dart';
 

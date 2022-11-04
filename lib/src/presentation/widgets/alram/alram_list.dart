@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/common/provider_listen_false.dart';
 import 'package:studimer/src/core/resources/type.dart';
-import 'package:studimer/src/data/models/internal/notice.dart';
+import 'package:studimer/src/data/models/internal/alram.dart';
 
-class NoticeList extends StatelessWidget {
-  const NoticeList({Key? key, required this.initValue}) : super(key: key);
-  final Notice initValue;
+class AlramList extends StatelessWidget {
+  const AlramList({Key? key, required this.initValue}) : super(key: key);
+  final Alram initValue;
   @override
   Widget build(BuildContext context) {
     final provider = cycleOptionProviderOf(context);
@@ -14,10 +14,10 @@ class NoticeList extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
-            ...Notice.noticeList
+            ...Alram.noticeList
                 .map<Widget>((e) => ElevatedButton(
                     onPressed: () {
-                      provider.setNotice(e);
+                      provider.setAlram(e);
                       provider.setFocusOn(FocusNum.none);
                     },
                     style: ElevatedButton.styleFrom(
@@ -25,7 +25,7 @@ class NoticeList extends StatelessWidget {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.blueGrey[400]),
                     child: Text(
-                      e.noticeName,
+                      e.alramName,
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     )))

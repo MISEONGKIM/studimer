@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:studimer/src/core/resources/type.dart';
-import 'package:studimer/src/data/models/internal/notice.dart';
+import 'package:studimer/src/data/models/internal/alram.dart';
+import 'package:studimer/src/data/models/internal/notify.dart';
 import 'package:studimer/src/data/models/internal/study_cycle.dart';
 
 class CycleOptionProvider extends ChangeNotifier {
@@ -8,8 +9,8 @@ class CycleOptionProvider extends ChangeNotifier {
   FocusNum focusOn = FocusNum.none;
   TimerStatus timerStatus = TimerStatus.cancel;
   late int repeatCount;
+  bool isStudyTimerWorking = false;
   bool isTimerStop = false;
-
   bool isTimerBtnDisabled = true;
 
   CycleOptionProvider() {
@@ -46,8 +47,8 @@ class CycleOptionProvider extends ChangeNotifier {
     oneCycle.repeat = value;
   }
 
-  setNotice(Notice value) {
-    oneCycle.notice = value;
+  setAlram(Alram value) {
+    oneCycle.alram = value;
   }
 
   setTimerStatus(TimerStatus value) {
@@ -58,5 +59,12 @@ class CycleOptionProvider extends ChangeNotifier {
   setIsTimerStop() {
     isTimerStop = !isTimerStop;
     notifyListeners();
+  }
+
+  void alramStart() {
+    String notifyContent = isStudyTimerWorking ? '쉬는 시간 입니다.' : '공부할 시간 입니다.';
+    Notify(notifyAfterExecuteFunc: null, bgNotifyAfterExecuteFunc: null)
+        .create(notifyContent);
+    oneCycle.alram.startAlram();
   }
 }

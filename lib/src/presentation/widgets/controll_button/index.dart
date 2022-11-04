@@ -14,30 +14,21 @@ class ControllButtonContainer extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  _cancelNextExec(BuildContext context, CycleOptionProvider cProvider) {
-    if (cProvider.repeatCount == 1) {
-      cProvider.setTimerStatus(TimerStatus.cancel);
-      return;
-    }
-    cProvider.setReapeatCount(cProvider.repeatCount - 1);
-    _studyTimerStart(context, cProvider);
-  }
-
   _studyTimerStart(BuildContext context, CycleOptionProvider cProvider) {
-    timerProviderOf<StudyTimerProvider>(context)
-        .start(cProvider.oneCycle.studyTime, cancelNextExec: () {
-      if (cProvider.oneCycle.restTime == Duration.zero) {
-        _cancelNextExec(context, cProvider);
-        return;
-      }
-      _restTimerStart(context, cProvider);
+    final tProvider = timerProviderOf<StudyTimerProvider>(context);
+    tProvider.start(cProvider.oneCycle.studyTime, cancelNextExecFor: () {
+      cProvider.alramStart();
+      if (cProvider.oneCycle.restTime != Duration.zero) return;
+      cProvider.setReapeatCount(cProvider.repeatCount - 1);
     });
   }
 
   _restTimerStart(BuildContext context, CycleOptionProvider cProvider) {
-    timerProviderOf<RestTimerProvider>(context).start(
-        cProvider.oneCycle.restTime,
-        cancelNextExec: () => _cancelNextExec(context, cProvider));
+    timerProviderOf<RestTimerProvider>(context)
+        .start(cProvider.oneCycle.restTime, cancelNextExecFor: () {
+      cProvider.alramStart();
+      cProvider.setReapeatCount(cProvider.repeatCount - 1);
+    });
   }
 
   _startOnPressed(BuildContext context) {
