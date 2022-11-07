@@ -68,12 +68,12 @@ class CycleOptionProvider extends ChangeNotifier {
             ? '쉬는 시간 입니다.'
             : '공부할 시간 입니다.';
     notify = Notify(notifyAfterExecuteFunc: () {
-      oneCycle.alarm.stopAlarm();
+      oneCycle.alarm.stopAlarm(oneCycle.alarm.alarmCode);
       notifyAfterFunction();
     }, bgNotifyAfterExecuteFunc: () {
-      oneCycle.alarm.stopAlarm();
+      oneCycle.alarm.stopAlarm(oneCycle.alarm.alarmCode);
     });
     notify.create(notifyContent);
-    oneCycle.alarm.startAlarm();
+    oneCycle.alarm.startAlarm(oneCycle.alarm.alarmCode);
   }
 }

@@ -4,8 +4,8 @@ import 'package:studimer/src/core/common/provider_listen_false.dart';
 import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/data/models/internal/timer.dart';
 import 'package:studimer/src/presentation/providers/timer_provider.dart';
+import 'package:studimer/src/presentation/widgets/alram/index.dart';
 import 'package:studimer/src/presentation/widgets/controll_button/index.dart';
-import 'package:studimer/src/presentation/widgets/alarm/index.dart';
 import 'package:studimer/src/presentation/widgets/repeat/index.dart';
 import 'package:studimer/src/presentation/widgets/timer/index.dart';
 
@@ -56,7 +56,7 @@ class MainView extends StatelessWidget {
                 _enableCheck(provider.focusOn, FocusNum.repeat,
                     const Expanded(child: RepeatWidget())),
                 _enableCheck(provider.focusOn, FocusNum.notice,
-                    const Expanded(child: NoticeWidget()))
+                    const Expanded(child: AlarmWidget()))
               ],
             ),
             _enableCheck(provider.focusOn, FocusNum.none,
