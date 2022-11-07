@@ -8,7 +8,7 @@ class RepeatTextField extends StatelessWidget {
   final FocusNode _focus = FocusNode();
   _fieldFocusChange(
       BuildContext context, FocusNode currentFocus, dynamic provider) {
-    currentFocus.unfocus();
+    // currentFocus.unfocus();
     provider.setFocusOn(FocusNum.none);
   }
 

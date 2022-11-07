@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studimer/src/core/common/provider_listen_false.dart';
+import 'package:studimer/src/core/common/time_textfiled_formatter.dart';
 import 'package:studimer/src/core/resources/type.dart';
 
 class TimerNumberTextField extends StatelessWidget {
@@ -27,11 +28,8 @@ class TimerNumberTextField extends StatelessWidget {
     return Expanded(
         child: TextFormField(
             focusNode: _focus,
-            autofocus: true,
             inputFormatters: [
-              LengthLimitingTextInputFormatter(2),
-              // FilteringTextInputFormatter.allow(
-              //     RegExp("[0-${int.parse(max[0])}][0-${int.parse(max[1])}]"))
+              TimeTextfeildFormatter(maxValue),
             ],
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
