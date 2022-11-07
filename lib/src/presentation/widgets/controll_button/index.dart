@@ -50,6 +50,7 @@ class ControllButtonContainer extends StatelessWidget {
             cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel))
         : timerProviderOf<RestTimerProvider>(context).cancel(
             cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel));
+    cProvider.isStudyTimerMode = false;
   }
 
   _stopOnPressed(BuildContext context, CycleOptionProvider cProvider) {
