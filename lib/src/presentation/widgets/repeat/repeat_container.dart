@@ -12,8 +12,8 @@ class RepeatContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CycleOptionPrvdConsumer(
         builder: (context, provider) =>
-            provider.timerStatus == TimerStatus.start
-                ? RepeatText(provider: provider)
-                : RepeatTextField(provider: provider));
+            provider.timerStatus == TimerStatus.cancel
+                ? RepeatTextField(provider: provider)
+                : RepeatText(provider: provider));
   }
 }

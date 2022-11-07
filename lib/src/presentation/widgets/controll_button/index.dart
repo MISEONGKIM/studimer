@@ -19,7 +19,8 @@ class ControllButtonContainer extends StatelessWidget {
     tProvider.start(cProvider.oneCycle.studyTime, cancelNextExecFor: () {
       cProvider.alramStart();
       if (cProvider.oneCycle.restTime != Duration.zero) return;
-      cProvider.setReapeatCount(cProvider.repeatCount - 1);
+      cProvider.oneCycle.repeat != 1 &&
+          cProvider.setReapeatCount(cProvider.repeatCount - 1);
     });
   }
 
@@ -27,7 +28,8 @@ class ControllButtonContainer extends StatelessWidget {
     timerProviderOf<RestTimerProvider>(context)
         .start(cProvider.oneCycle.restTime, cancelNextExecFor: () {
       cProvider.alramStart();
-      cProvider.setReapeatCount(cProvider.repeatCount - 1);
+      cProvider.oneCycle.repeat != 1 &&
+          cProvider.setReapeatCount(cProvider.repeatCount - 1);
     });
   }
 
@@ -35,15 +37,19 @@ class ControllButtonContainer extends StatelessWidget {
     CycleOptionProvider cProvider = cycleOptionProviderOf(context);
     cProvider.setTimerStatus(TimerStatus.start);
     cProvider.setReapeatCount(cProvider.oneCycle.repeat);
-    _studyTimerStart(context, cProvider);
+    cProvider.isStudyTimerMode
+        ? _restTimerStart(context, cProvider)
+        : _studyTimerStart(context, cProvider);
+    cProvider.isStudyTimerMode = !cProvider.isStudyTimerMode;
   }
 
   _cancelOnPressed(BuildContext context) {
     final cProvider = cycleOptionProviderOf(context);
-    timerProviderOf<StudyTimerProvider>(context).cancel(
-        cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel));
-    timerProviderOf<RestTimerProvider>(context).cancel(
-        cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel));
+    cProvider.isStudyTimerMode
+        ? timerProviderOf<StudyTimerProvider>(context).cancel(
+            cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel))
+        : timerProviderOf<RestTimerProvider>(context).cancel(
+            cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel));
   }
 
   _stopOnPressed(BuildContext context, CycleOptionProvider cProvider) {
@@ -58,8 +64,9 @@ class ControllButtonContainer extends StatelessWidget {
         builder: (context, provider) => Container(
             margin: const EdgeInsets.only(top: 10),
             width: double.infinity,
-            child: provider.timerStatus == TimerStatus.start
-                ? Row(
+            child: provider.timerStatus == TimerStatus.cancel
+                ? StartButton(onPressed: () => _startOnPressed(context))
+                : Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -71,7 +78,6 @@ class ControllButtonContainer extends StatelessWidget {
                         Expanded(
                             child: CancelButton(
                                 onPressed: () => _cancelOnPressed(context)))
-                      ])
-                : StartButton(onPressed: () => _startOnPressed(context))));
+                      ])));
   }
 }

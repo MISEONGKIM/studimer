@@ -15,7 +15,7 @@ class Alram {
       {required this.alramCode, required this.alramName, required this.isUse});
 
   startAlram() async {
-    Vibration.vibrate();
+    Vibration.vibrate(repeat: 100);
   }
 
   stopAlram() async {

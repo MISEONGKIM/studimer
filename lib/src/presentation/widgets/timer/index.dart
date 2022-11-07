@@ -33,7 +33,7 @@ class TimerWidget<T> extends StatelessWidget {
                     required int maxValue,
                     required void Function(int) onChange}) =>
                 provider.focusOn == FocusNum.none &&
-                        provider.timerStatus != TimerStatus.start
+                        provider.timerStatus == TimerStatus.cancel
                     ? TimerNumberPicker(
                         value: value,
                         maxValue: maxValue,
@@ -44,12 +44,12 @@ class TimerWidget<T> extends StatelessWidget {
                         maxValue: maxValue,
                         onChange: onChange,
                       );
-            return provider.timerStatus == TimerStatus.start
-                ? TimerTextContainer(
+            return provider.timerStatus == TimerStatus.cancel
+                ? TimerNumberContainer(
+                    childWidget: childWidget,
                     consumer: consumer,
                   )
-                : TimerNumberContainer(
-                    childWidget: childWidget,
+                : TimerTextContainer(
                     consumer: consumer,
                   );
           })

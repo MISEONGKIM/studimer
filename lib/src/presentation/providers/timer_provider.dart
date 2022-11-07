@@ -5,7 +5,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:studimer/src/data/models/internal/alram.dart';
 import 'package:studimer/src/data/models/internal/timer.dart';
 
 class TimerProvider extends ChangeNotifier {

@@ -9,16 +9,22 @@ class CycleOptionProvider extends ChangeNotifier {
   FocusNum focusOn = FocusNum.none;
   TimerStatus timerStatus = TimerStatus.cancel;
   late int repeatCount;
-  bool isStudyTimerWorking = false;
+  late final Notify notify;
+  bool isStudyTimerMode = false;
   bool isTimerStop = false;
   bool isTimerBtnDisabled = true;
 
   CycleOptionProvider() {
     checkIsTimeBtnDisabled();
+    notify = Notify(
+        notifyAfterExecuteFunc: _notifyAfterFuncFor,
+        bgNotifyAfterExecuteFunc: () {
+          oneCycle.alram.stopAlram();
+        });
   }
 
   setFocusOn(FocusNum value) {
-    if (value != FocusNum.none && timerStatus == TimerStatus.start) return;
+    if (value != FocusNum.none && timerStatus != TimerStatus.stop) return;
     focusOn = value;
     notifyListeners();
   }
@@ -61,10 +67,14 @@ class CycleOptionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  _notifyAfterFuncFor() {
+    oneCycle.alram.stopAlram();
+    oneCycle.repeat == 1 && setTimerStatus(TimerStatus.cancel);
+  }
+
   void alramStart() {
-    String notifyContent = isStudyTimerWorking ? '쉬는 시간 입니다.' : '공부할 시간 입니다.';
-    Notify(notifyAfterExecuteFunc: null, bgNotifyAfterExecuteFunc: null)
-        .create(notifyContent);
+    String notifyContent = isStudyTimerMode ? '쉬는 시간 입니다.' : '공부할 시간 입니다.';
+    notify.create(notifyContent);
     oneCycle.alram.startAlram();
   }
 }

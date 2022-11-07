@@ -18,12 +18,13 @@ class Notify {
         InitializationSettings(android: _initializationSettingsAndroid);
     _flutterLocalNotificationsPlugin.initialize(
       _initializationSettings,
-      onDidReceiveNotificationResponse: (details) {
+      onDidReceiveNotificationResponse: (NotificationResponse details) {
         notifyAfterExecuteFunc();
       },
-      onDidReceiveBackgroundNotificationResponse: (details) {
-        bgNotifyAfterExecuteFunc();
-      },
+      // onDidReceiveBackgroundNotificationResponse:
+      //     (NotificationResponse details) {
+      //   bgNotifyAfterExecuteFunc();
+      // },
     );
     tz.initializeTimeZones();
   }
