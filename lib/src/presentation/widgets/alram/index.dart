@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'alram_list_container.dart';
+import 'alarm_list_container.dart';
 
 class NoticeWidget extends StatelessWidget {
   const NoticeWidget({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class NoticeWidget extends StatelessWidget {
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
-              AlramListContainer(),
+              AlarmListContainer(),
             ]));
   }
 }

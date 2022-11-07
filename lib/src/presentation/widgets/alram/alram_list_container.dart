@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
 import 'package:studimer/src/core/resources/type.dart';
 
-import 'alram_list.dart';
+import 'alarm_list.dart';
 
-class AlramListContainer extends StatelessWidget {
-  const AlramListContainer({Key? key}) : super(key: key);
+class AlarmListContainer extends StatelessWidget {
+  const AlarmListContainer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CycleOptionPrvdConsumer(
       builder: (context, provider) => provider.focusOn == FocusNum.notice
-          ? AlramList(initValue: provider.oneCycle.alram!)
+          ? AlarmList(initValue: provider.oneCycle.alarm!)
           : GestureDetector(
               onTap: () {
                 provider.setFocusOn(FocusNum.notice);
@@ -24,7 +24,7 @@ class AlramListContainer extends StatelessWidget {
                     color: Colors.white12,
                     borderRadius: BorderRadius.circular(7),
                   ),
-                  child: Text(provider.oneCycle.alram!.alramName,
+                  child: Text(provider.oneCycle.alarm!.alarmName,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           color: Colors.white,

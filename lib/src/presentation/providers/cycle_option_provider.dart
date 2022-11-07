@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:studimer/src/core/resources/type.dart';
-import 'package:studimer/src/data/models/internal/alram.dart';
+import 'package:studimer/src/data/models/internal/alarm.dart';
 import 'package:studimer/src/data/models/internal/notify.dart';
 import 'package:studimer/src/data/models/internal/study_cycle.dart';
 
@@ -48,8 +48,8 @@ class CycleOptionProvider extends ChangeNotifier {
     oneCycle.repeat = value;
   }
 
-  setAlram(Alram value) {
-    oneCycle.alram = value;
+  setAlarm(Alarm value) {
+    oneCycle.alarm = value;
   }
 
   setTimerStatus(TimerStatus value) {
@@ -57,20 +57,23 @@ class CycleOptionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  setIsTimerStop() {
+  togleIsTimerStop() {
     isTimerStop = !isTimerStop;
     notifyListeners();
   }
 
-  void alramStart(Function notifyAfterFunction) {
-    String notifyContent = isStudyTimerMode ? '쉬는 시간 입니다.' : '공부할 시간 입니다.';
+  void alarmStart(Function notifyAfterFunction) {
+    String notifyContent =
+        isStudyTimerMode && oneCycle.restTime != Duration.zero
+            ? '쉬는 시간 입니다.'
+            : '공부할 시간 입니다.';
     notify = Notify(notifyAfterExecuteFunc: () {
-      oneCycle.alram.stopAlram();
+      oneCycle.alarm.stopAlarm();
       notifyAfterFunction();
     }, bgNotifyAfterExecuteFunc: () {
-      oneCycle.alram.stopAlram();
+      oneCycle.alarm.stopAlarm();
     });
     notify.create(notifyContent);
-    oneCycle.alram.startAlram();
+    oneCycle.alarm.startAlarm();
   }
 }
