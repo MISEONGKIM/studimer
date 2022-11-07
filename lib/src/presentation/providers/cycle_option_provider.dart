@@ -24,7 +24,7 @@ class CycleOptionProvider extends ChangeNotifier {
   }
 
   setFocusOn(FocusNum value) {
-    if (value != FocusNum.none && timerStatus != TimerStatus.stop) return;
+    if (timerStatus != TimerStatus.cancel) return;
     focusOn = value;
     notifyListeners();
   }
