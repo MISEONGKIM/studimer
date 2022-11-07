@@ -14,33 +14,45 @@ class ControllButtonContainer extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  _notifyAfterFuncFor(BuildContext context, CycleOptionProvider cProvider) {
+    if (cProvider.repeatCount == 1) {
+      cProvider.setTimerStatus(TimerStatus.cancel);
+      return;
+    }
+    cProvider.setReapeatCount(cProvider.repeatCount - 1);
+    _studyTimerStart(context, cProvider);
+  }
+
   _studyTimerStart(BuildContext context, CycleOptionProvider cProvider) {
     final tProvider = timerProviderOf<StudyTimerProvider>(context);
     tProvider.start(cProvider.oneCycle.studyTime, cancelNextExecFor: () {
-      cProvider.alramStart();
-      if (cProvider.oneCycle.restTime != Duration.zero) return;
-      cProvider.oneCycle.repeat != 1 &&
-          cProvider.setReapeatCount(cProvider.repeatCount - 1);
+      cProvider.alramStart(() {
+        if (cProvider.oneCycle.restTime != Duration.zero) {
+          cProvider.isStudyTimerMode = !cProvider.isStudyTimerMode;
+          _restTimerStart(context, cProvider);
+          return;
+        }
+        _notifyAfterFuncFor(context, cProvider);
+      });
     });
   }
 
   _restTimerStart(BuildContext context, CycleOptionProvider cProvider) {
     timerProviderOf<RestTimerProvider>(context)
         .start(cProvider.oneCycle.restTime, cancelNextExecFor: () {
-      cProvider.alramStart();
-      cProvider.oneCycle.repeat != 1 &&
-          cProvider.setReapeatCount(cProvider.repeatCount - 1);
+      cProvider.alramStart(() {
+        cProvider.isStudyTimerMode = !cProvider.isStudyTimerMode;
+        _notifyAfterFuncFor(context, cProvider);
+      });
     });
   }
 
   _startOnPressed(BuildContext context) {
     CycleOptionProvider cProvider = cycleOptionProviderOf(context);
     cProvider.setTimerStatus(TimerStatus.start);
-    cProvider.setReapeatCount(cProvider.oneCycle.repeat);
-    cProvider.isStudyTimerMode
-        ? _restTimerStart(context, cProvider)
-        : _studyTimerStart(context, cProvider);
-    cProvider.isStudyTimerMode = !cProvider.isStudyTimerMode;
+    cProvider.setReapeatCount(cProvider.oneCycle.repeat!);
+    _studyTimerStart(context, cProvider);
+    cProvider.isStudyTimerMode = true;
   }
 
   _cancelOnPressed(BuildContext context) {
