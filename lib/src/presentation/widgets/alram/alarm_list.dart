@@ -15,31 +15,36 @@ class AlarmList extends StatelessWidget {
         child: ListView(
           children: [
             ...Alarm.noticeList
-                .map<Widget>((e) => ElevatedButton(
-                    onPressed: () {
-                      provider.setAlarm(e);
-                      provider.setFocusOn(FocusNum.none);
-                    },
+                .map<Widget>((e) => Container(
+                    margin: const EdgeInsets.all(5),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          provider.setAlarm(e);
+                          provider.setFocusOn(FocusNum.none);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            fixedSize: const Size.fromHeight(50),
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.blueGrey[400]),
+                        child: Text(
+                          e.alarmName,
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ))))
+                .toList(),
+            Container(
+                margin: const EdgeInsets.all(5),
+                child: ElevatedButton(
+                    onPressed: () => provider.setFocusOn(FocusNum.none),
                     style: ElevatedButton.styleFrom(
                         fixedSize: const Size.fromHeight(50),
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.blueGrey[400]),
-                    child: Text(
-                      e.alarmName,
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                    child: const Text(
+                      '뒤로 가기',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     )))
-                .toList(),
-            ElevatedButton(
-                onPressed: () => provider.setFocusOn(FocusNum.none),
-                style: ElevatedButton.styleFrom(
-                    fixedSize: const Size.fromHeight(50),
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blueGrey[400]),
-                child: const Text(
-                  '뒤로 가기',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ))
           ],
         ));
   }
