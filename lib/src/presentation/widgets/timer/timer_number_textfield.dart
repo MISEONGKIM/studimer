@@ -6,24 +6,26 @@ import 'package:studimer/src/core/resources/type.dart';
 class TimerNumberTextField extends StatelessWidget {
   TimerNumberTextField(
       {Key? key,
-      required this.value,
+      required this.initialValue,
       required this.maxValue,
       required this.onChange})
       : super(key: key);
-  final int value;
+  final int initialValue;
   final int maxValue;
   final void Function(int) onChange;
   final FocusNode _focus = FocusNode();
 
-  _fieldFocusChange(
-      BuildContext context, FocusNode currentFocus, dynamic provider) {
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus,
+      dynamic provider, int value) {
     currentFocus.unfocus();
+    onChange(value);
     provider.setFocusOn(FocusNum.none);
   }
 
   @override
   Widget build(BuildContext context) {
     final provider = cycleOptionProviderOf(context);
+    late int value;
     return Expanded(
         child: TextFormField(
             focusNode: _focus,
@@ -32,14 +34,13 @@ class TimerNumberTextField extends StatelessWidget {
             ],
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
-              _fieldFocusChange(context, _focus, provider);
+              _fieldFocusChange(context, _focus, provider, value);
             },
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
-            initialValue: value.toString(),
-            onChanged: (value) {
-              final v = value == '' ? 0 : int.parse(value);
-              onChange(v);
+            initialValue: initialValue.toString(),
+            onChanged: (v) {
+              value = v == '' ? 0 : int.parse(v);
             },
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)));
   }

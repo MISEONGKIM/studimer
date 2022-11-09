@@ -39,7 +39,7 @@ class TimerWidget<T> extends StatelessWidget {
                         onChange: onChange,
                         focusNum: focusNum)
                     : TimerNumberTextField(
-                        value: value,
+                        initialValue: value,
                         maxValue: maxValue,
                         onChange: onChange,
                       );
