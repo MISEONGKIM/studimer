@@ -44,10 +44,31 @@ class TimerWidget<T> extends StatelessWidget {
                         onChange: onChange,
                       );
             return provider.timerStatus == TimerStatus.cancel
-                ? TimerNumberContainer(
-                    childWidget: childWidget,
-                    consumer: consumer,
-                  )
+                ? Column(children: [
+                    TimerNumberContainer(
+                      childWidget: childWidget,
+                      consumer: consumer,
+                    ),
+                    provider.focusOn == FocusNum.studytime ||
+                            provider.focusOn == FocusNum.resttime
+                        ? Container(
+                            width: double.infinity,
+                            margin: const EdgeInsets.only(top: 20),
+                            child: ElevatedButton(
+                                onPressed: () =>
+                                    provider.setFocusOn(FocusNum.none),
+                                style: ElevatedButton.styleFrom(
+                                    fixedSize: const Size.fromHeight(50),
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: Colors.blueGrey[400]),
+                                child: const Text(
+                                  '뒤로 가기',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                )))
+                        : const SizedBox.shrink()
+                  ])
                 : TimerTextContainer(
                     consumer: consumer,
                   );
