@@ -6,14 +6,17 @@ class RepeatTextField extends StatelessWidget {
   RepeatTextField({Key? key, required this.provider}) : super(key: key);
   final CycleOptionProvider provider;
   final FocusNode _focus = FocusNode();
-  _fieldFocusChange(
-      BuildContext context, FocusNode currentFocus, dynamic provider) {
-    // currentFocus.unfocus();
+
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus,
+      dynamic provider, int value) {
+    currentFocus.unfocus();
+    provider.setRepeat(value > 0 ? value : 1);
     provider.setFocusOn(FocusNum.none);
   }
 
   @override
   Widget build(BuildContext context) {
+    late int value;
     return Column(children: [
       Container(
           width: double.infinity,
@@ -24,18 +27,20 @@ class RepeatTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(7),
           ),
           child: TextFormField(
+            focusNode: _focus,
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
-              _fieldFocusChange(context, _focus, provider);
+              _fieldFocusChange(context, _focus, provider, value);
             },
-            onTap: () {
-              provider.setFocusOn(FocusNum.repeat);
-            },
+            onTap: provider.focusOn == FocusNum.none
+                ? () {
+                    provider.setFocusOn(FocusNum.repeat);
+                  }
+                : null,
             initialValue: provider.oneCycle.repeat.toString(),
-            onChanged: (value) {
-              final v = value == '' ? 1 : int.parse(value);
-              provider.setRepeat(v);
+            onChanged: (v) {
+              value = v == '' ? 0 : int.parse(v);
             },
             readOnly: provider.timerStatus != TimerStatus.cancel,
             keyboardType: TextInputType.number,
