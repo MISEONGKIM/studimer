@@ -70,8 +70,6 @@ class CycleOptionProvider extends ChangeNotifier {
     notify = Notify(notifyAfterExecuteFunc: () {
       oneCycle.alarm.stopAlarm(oneCycle.alarm.alarmCode);
       notifyAfterFunction();
-    }, bgNotifyAfterExecuteFunc: () {
-      oneCycle.alarm.stopAlarm(oneCycle.alarm.alarmCode);
     });
     notify.create(notifyContent);
     oneCycle.alarm.startAlarm(oneCycle.alarm.alarmCode);

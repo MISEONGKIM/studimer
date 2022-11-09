@@ -54,8 +54,9 @@ class TimerProvider extends ChangeNotifier {
   }
 
   void cancel({required Function cancelNextExec}) {
-    if (!timer.isActive) return;
-    timer.cancel();
+    if (timer.isActive) {
+      timer.cancel();
+    }
     cancelNextExec();
     notifyListeners();
   }

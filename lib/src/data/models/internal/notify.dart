@@ -9,9 +9,7 @@ class Notify {
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  Notify(
-      {required Function notifyAfterExecuteFunc,
-      required Function bgNotifyAfterExecuteFunc}) {
+  Notify({required Function notifyAfterExecuteFunc}) {
     _initializationSettingsAndroid =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
     _initializationSettings =
@@ -21,10 +19,6 @@ class Notify {
       onDidReceiveNotificationResponse: (NotificationResponse details) {
         notifyAfterExecuteFunc();
       },
-      // onDidReceiveBackgroundNotificationResponse:
-      //     (NotificationResponse details) {
-      //   bgNotifyAfterExecuteFunc();
-      // },
     );
     tz.initializeTimeZones();
   }
