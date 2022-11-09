@@ -1,6 +1,10 @@
 import 'dart:async';
+import 'dart:isolate';
+import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studimer/src/data/models/internal/timer.dart';
 
 class TimerProvider extends ChangeNotifier {
@@ -9,6 +13,28 @@ class TimerProvider extends ChangeNotifier {
   late Duration initDuration;
   late Function cancelNextExec;
 
+  ReceivePort port = ReceivePort();
+  final String isolateName;
+  final String sharedPreferKey;
+  final int timerId;
+  late final SharedPreferences prefs;
+
+  TimerProvider(
+      {required this.sharedPreferKey,
+      required this.isolateName,
+      required this.timerId}) {
+    _init(sharedPreferKey);
+  }
+
+  _init(String sharedPreferKey) async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    IsolateNameServer.registerPortWithName(
+      port.sendPort,
+      isolateName,
+    );
+  }
+
   void setTimerModel(TimerModel model) {
     t = model;
     initDuration = model.getDuration();
@@ -16,6 +42,8 @@ class TimerProvider extends ChangeNotifier {
 
   _notify() async {
     t.setTime(t.getDuration());
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(sharedPreferKey, t.getDuration().inSeconds);
     notifyListeners();
   }
 
@@ -63,9 +91,17 @@ class TimerProvider extends ChangeNotifier {
 }
 
 class StudyTimerProvider extends TimerProvider {
-  StudyTimerProvider() : super();
+  StudyTimerProvider()
+      : super(
+            timerId: Random().nextInt(pow(2, 31) as int),
+            sharedPreferKey: "studytimer",
+            isolateName: "studyIsolate");
 }
 
 class RestTimerProvider extends TimerProvider {
-  RestTimerProvider() : super();
+  RestTimerProvider()
+      : super(
+            timerId: Random().nextInt(pow(2, 31) as int),
+            sharedPreferKey: "resttimer",
+            isolateName: "restIsolate");
 }
