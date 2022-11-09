@@ -6,6 +6,7 @@ import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/views/main_view.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
