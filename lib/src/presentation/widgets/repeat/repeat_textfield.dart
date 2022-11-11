@@ -16,7 +16,7 @@ class RepeatTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late int value;
+    int value = provider.oneCycle.repeat ?? 0;
     return Column(children: [
       Container(
           width: double.infinity,

@@ -16,7 +16,7 @@ class TimerNumberTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late int value;
+    int value = initialValue;
     return Expanded(
         child: TextFormField(
             focusNode: _focus,
