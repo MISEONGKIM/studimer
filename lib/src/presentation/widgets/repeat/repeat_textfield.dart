@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/resources/type.dart';
+import 'package:studimer/src/core/utils/func.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
 
 class RepeatTextField extends StatelessWidget {
@@ -16,7 +17,6 @@ class RepeatTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int value = provider.oneCycle.repeat ?? 0;
     return Column(children: [
       Container(
           width: double.infinity,
@@ -31,7 +31,7 @@ class RepeatTextField extends StatelessWidget {
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
-              _fieldFocusChange(_focus, provider, value);
+              _fieldFocusChange(_focus, provider, stringToInt(term));
             },
             onTap: provider.focusOn == FocusNum.none
                 ? () {
@@ -39,9 +39,6 @@ class RepeatTextField extends StatelessWidget {
                   }
                 : null,
             initialValue: provider.oneCycle.repeat.toString(),
-            onChanged: (v) {
-              value = v == '' ? 0 : int.parse(v);
-            },
             readOnly: provider.timerStatus != TimerStatus.cancel,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
