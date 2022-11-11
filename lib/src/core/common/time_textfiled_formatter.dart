@@ -6,8 +6,8 @@ class TimeTextfeildFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.text == "") return newValue;
-    final newNum = int.parse(newValue.text.toString());
+    final newNum =
+        newValue.text == "" ? 0 : int.parse(newValue.text.toString());
     if (newNum > maxValue) {
       return oldValue;
     }

@@ -7,8 +7,8 @@ class RepeatTextField extends StatelessWidget {
   final CycleOptionProvider provider;
   final FocusNode _focus = FocusNode();
 
-  _fieldFocusChange(BuildContext context, FocusNode currentFocus,
-      CycleOptionProvider provider, int value) {
+  _fieldFocusChange(
+      FocusNode currentFocus, CycleOptionProvider provider, int value) {
     currentFocus.unfocus();
     provider.setRepeat(value > 0 ? value : 1);
     provider.setFocusOn(FocusNum.none);
@@ -31,7 +31,7 @@ class RepeatTextField extends StatelessWidget {
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
-              _fieldFocusChange(context, _focus, provider, value);
+              _fieldFocusChange(_focus, provider, value);
             },
             onTap: provider.focusOn == FocusNum.none
                 ? () {
@@ -57,7 +57,7 @@ class RepeatTextField extends StatelessWidget {
                       foregroundColor: Colors.white,
                       backgroundColor: Colors.blueGrey[400]),
                   child: const Text(
-                    '뒤로 가기',
+                    '취소',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   )))
           : const SizedBox.shrink()

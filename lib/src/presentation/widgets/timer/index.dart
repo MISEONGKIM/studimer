@@ -5,6 +5,8 @@ import 'package:studimer/src/presentation/widgets/timer/timer_number_container.d
 import 'package:studimer/src/presentation/widgets/timer/timer_number_picker.dart';
 import 'package:studimer/src/presentation/widgets/timer/timer_number_textfield.dart';
 
+import 'timer_number_picker_container.dart';
+import 'timer_number_textfiled_container.dart';
 import 'timer_text_container.dart';
 
 class TimerWidget<T> extends StatelessWidget {
@@ -28,47 +30,36 @@ class TimerWidget<T> extends StatelessWidget {
                 color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
           ),
           CycleOptionPrvdConsumer(builder: (context, provider) {
-            childWidget(
-                    {required int value,
-                    required int maxValue,
-                    required void Function(int) onChange}) =>
-                provider.focusOn == FocusNum.none
-                    ? TimerNumberPicker(
-                        value: value,
-                        maxValue: maxValue,
-                        onChange: onChange,
-                        focusNum: focusNum)
-                    : TimerNumberTextField(
-                        initialValue: value,
-                        maxValue: maxValue,
-                        onChange: onChange,
-                      );
             return provider.timerStatus == TimerStatus.cancel
-                ? Column(children: [
-                    TimerNumberContainer(
-                      childWidget: childWidget,
-                      consumer: consumer,
-                    ),
-                    provider.focusOn == FocusNum.studytime ||
-                            provider.focusOn == FocusNum.resttime
-                        ? Container(
-                            width: double.infinity,
-                            margin: const EdgeInsets.only(top: 20),
-                            child: ElevatedButton(
-                                onPressed: () =>
-                                    provider.setFocusOn(FocusNum.none),
-                                style: ElevatedButton.styleFrom(
-                                    fixedSize: const Size.fromHeight(50),
-                                    foregroundColor: Colors.white,
-                                    backgroundColor: Colors.blueGrey[400]),
-                                child: const Text(
-                                  '뒤로 가기',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                )))
-                        : const SizedBox.shrink()
-                  ])
+                ? provider.focusOn == FocusNum.none
+                    ? TimerNumberPickerContainer(
+                        consumer: consumer,
+                        focusNum: focusNum,
+                      )
+                    : Column(children: [
+                        TimerNumberTextFieldContainer(
+                          consumer: consumer,
+                        ),
+                        provider.focusOn == FocusNum.studytime ||
+                                provider.focusOn == FocusNum.resttime
+                            ? Container(
+                                width: double.infinity,
+                                margin: const EdgeInsets.only(top: 20),
+                                child: ElevatedButton(
+                                    onPressed: () =>
+                                        provider.setFocusOn(FocusNum.none),
+                                    style: ElevatedButton.styleFrom(
+                                        fixedSize: const Size.fromHeight(50),
+                                        foregroundColor: Colors.white,
+                                        backgroundColor: Colors.blueGrey[400]),
+                                    child: const Text(
+                                      '취소',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    )))
+                            : const SizedBox.shrink()
+                      ])
                 : TimerTextContainer(
                     consumer: consumer,
                   );
