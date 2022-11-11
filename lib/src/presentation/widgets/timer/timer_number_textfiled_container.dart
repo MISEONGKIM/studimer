@@ -19,9 +19,6 @@ class TimerNumberTextFieldContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return consumer(builder: (context, provider) {
-      int tmpHour = provider.t.hour;
-      int tmpMinuate = provider.t.minuate;
-      int tmpSecond = provider.t.second;
       return Container(
           margin: const EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
@@ -30,24 +27,15 @@ class TimerNumberTextFieldContainer extends StatelessWidget {
           ),
           child: Row(children: [
             TimerNumberTextField(
-                onChange: (int newValue) {
-                  tmpHour = newValue;
-                },
-                initialValue: tmpHour,
+                initialValue: provider.t.hour,
                 maxValue: 12,
                 onSubmit: _fieldFocusChange(provider.setHour)),
             TimerNumberTextField(
-                onChange: (int newValue) {
-                  tmpMinuate = newValue;
-                },
-                initialValue: tmpMinuate,
+                initialValue: provider.t.minuate,
                 maxValue: 59,
                 onSubmit: _fieldFocusChange(provider.setMinuate)),
             TimerNumberTextField(
-                onChange: (int newValue) {
-                  tmpSecond = newValue;
-                },
-                initialValue: tmpSecond,
+                initialValue: provider.t.second,
                 maxValue: 59,
                 onSubmit: _fieldFocusChange(provider.setSecond)),
           ]));

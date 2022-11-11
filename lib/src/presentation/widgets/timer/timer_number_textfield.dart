@@ -7,12 +7,10 @@ class TimerNumberTextField extends StatelessWidget {
     Key? key,
     required this.initialValue,
     required this.maxValue,
-    required this.onChange,
     required this.onSubmit,
   }) : super(key: key);
   final int initialValue;
   final int maxValue;
-  final void Function(int) onChange;
   final void Function(BuildContext, FocusNode, int) onSubmit;
   final FocusNode _focus = FocusNode();
 
