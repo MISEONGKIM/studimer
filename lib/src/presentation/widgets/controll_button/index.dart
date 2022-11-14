@@ -15,12 +15,14 @@ class ControllButtonContainer extends StatelessWidget {
   }) : super(key: key);
 
   _notifyAfterFuncFor(BuildContext context, CycleOptionProvider cProvider) {
-    if (cProvider.repeatCount == 1) {
-      cProvider.setTimerStatus(TimerStatus.cancel);
-      return;
-    }
+    if (cProvider.repeatCount == 1) return;
     cProvider.setReapeatCount(cProvider.repeatCount - 1);
     _studyTimerStart(context, cProvider);
+  }
+
+  _clearTimerStatusAndMode(CycleOptionProvider cProvider) {
+    cProvider.isStudyTimerMode = false;
+    cProvider.setTimerStatus(TimerStatus.cancel);
   }
 
   _studyTimerStart(BuildContext context, CycleOptionProvider cProvider) {
@@ -32,8 +34,13 @@ class ControllButtonContainer extends StatelessWidget {
           _restTimerStart(context, cProvider);
           return;
         }
+
         _notifyAfterFuncFor(context, cProvider);
       });
+
+      if (cProvider.oneCycle.restTime != Duration.zero ||
+          cProvider.repeatCount > 1) return;
+      _clearTimerStatusAndMode(cProvider);
     });
   }
 
@@ -44,6 +51,8 @@ class ControllButtonContainer extends StatelessWidget {
         cProvider.isStudyTimerMode = !cProvider.isStudyTimerMode;
         _notifyAfterFuncFor(context, cProvider);
       });
+      if (cProvider.repeatCount > 1) return;
+      _clearTimerStatusAndMode(cProvider);
     });
   }
 

@@ -16,8 +16,8 @@ class Alarm {
 
   startAlarm(NoticeType type) async {
     type == NoticeType.vivration
-        ? Vibration.vibrate(repeat: 100)
-        : FlutterRingtonePlayer.playNotification(looping: true, asAlarm: true);
+        ? Vibration.vibrate(duration: 1000, amplitude: 1)
+        : FlutterRingtonePlayer.playAlarm();
   }
 
   stopAlarm(NoticeType type) async {

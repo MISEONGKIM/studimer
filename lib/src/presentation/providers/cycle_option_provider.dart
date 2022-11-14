@@ -63,10 +63,15 @@ class CycleOptionProvider extends ChangeNotifier {
   }
 
   void alarmStart(Function notifyAfterFunction) {
-    String notifyContent =
-        isStudyTimerMode && oneCycle.restTime != Duration.zero
-            ? '쉬는 시간 입니다.'
-            : '공부할 시간 입니다.';
+    String notifyContent = oneCycle.restTime == Duration.zero
+        ? repeatCount == 1
+            ? '타이머 종료-! 대단하구만! ☝(｀ط´≠)'
+            : '공부하쟈 ~ ₍ᐢ.ˬ.ᐢ₎❤️'
+        : isStudyTimerMode
+            ? '쉬엄쉬엄해 ~ (ﾉ≧ڡ≦)💕'
+            : repeatCount == 1
+                ? '타이머 종료-! 대단하구만! ☝(｀ط´≠)'
+                : '공부하쟈 ~ ₍ᐢ.ˬ.ᐢ₎❤️';
     notify = Notify(notifyAfterExecuteFunc: () {
       oneCycle.alarm.stopAlarm(oneCycle.alarm.alarmCode);
       notifyAfterFunction();
