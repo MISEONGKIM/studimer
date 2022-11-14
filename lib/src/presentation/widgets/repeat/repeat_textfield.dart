@@ -1,18 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/core/utils/func.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
 
 class RepeatTextField extends StatelessWidget {
-  RepeatTextField({Key? key, required this.provider}) : super(key: key);
+  const RepeatTextField({Key? key, required this.provider}) : super(key: key);
   final CycleOptionProvider provider;
-  final FocusNode _focus = FocusNode();
 
-  _fieldFocusChange(
-      FocusNode currentFocus, CycleOptionProvider provider, int value) {
-    currentFocus.unfocus();
+  _fieldFocusChange(CycleOptionProvider provider, int value) {
     provider.setRepeat(value > 0 ? value : 1);
-    provider.setFocusOn(FocusNum.none);
+    Timer(const Duration(milliseconds: 200), () {
+      provider.setFocusOn(FocusNum.none);
+    });
   }
 
   @override
@@ -27,11 +28,10 @@ class RepeatTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(7),
           ),
           child: TextFormField(
-            focusNode: _focus,
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
-              _fieldFocusChange(_focus, provider, stringToInt(term));
+              _fieldFocusChange(provider, stringToInt(term));
             },
             onTap: provider.focusOn == FocusNum.none
                 ? () {

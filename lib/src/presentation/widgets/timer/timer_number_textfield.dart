@@ -12,21 +12,19 @@ class TimerNumberTextField extends StatelessWidget {
   }) : super(key: key);
   final int initialValue;
   final int maxValue;
-  final void Function(BuildContext, FocusNode, int) onSubmit;
-  final FocusNode _focus = FocusNode();
+  final void Function(BuildContext, int) onSubmit;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: TextFormField(
-            focusNode: _focus,
             inputFormatters: [
-              LengthLimitingTextInputFormatter(2),
-              TimeTextfeildFormatter(maxValue),
-            ],
+          LengthLimitingTextInputFormatter(2),
+          TimeTextfeildFormatter(maxValue),
+        ],
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
-              onSubmit(context, _focus, stringToInt(term));
+              onSubmit(context, stringToInt(term));
             },
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,

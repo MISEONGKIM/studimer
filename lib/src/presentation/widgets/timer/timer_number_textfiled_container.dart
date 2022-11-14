@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/common/provider_listen_false.dart';
 import 'package:studimer/src/core/resources/type.dart';
@@ -9,11 +11,13 @@ class TimerNumberTextFieldContainer extends StatelessWidget {
   final Widget Function({dynamic builder}) consumer;
 
   _fieldFocusChange(void Function(int) onChange) =>
-      (BuildContext context, FocusNode currentFocus, int value) {
+      (BuildContext context, int value) {
         final cProvider = cycleOptionProviderOf(context);
-        currentFocus.unfocus();
+
         onChange(value);
-        cProvider.setFocusOn(FocusNum.none);
+        Timer(const Duration(milliseconds: 200), () {
+          cProvider.setFocusOn(FocusNum.none);
+        });
       };
 
   @override
