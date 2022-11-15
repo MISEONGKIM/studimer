@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/common/provider_consumer.dart';
-import 'package:studimer/src/core/common/provider_listen_false.dart';
 import 'package:studimer/src/core/resources/type.dart';
-import 'package:studimer/src/data/models/internal/timer.dart';
 import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/widgets/alram/index.dart';
 import 'package:studimer/src/presentation/widgets/controll_button/index.dart';
@@ -27,17 +25,12 @@ class MainView extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(20),
         child: CycleOptionPrvdConsumer(builder: (context, provider) {
-          timerProviderOf<StudyTimerProvider>(context).setTimerModel(
-              TimerModel(provider.oneCycle.studyTime, provider.setStudyTime));
-          timerProviderOf<RestTimerProvider>(context).setTimerModel(
-              TimerModel(provider.oneCycle.restTime, provider.setRestTime));
           return Column(children: [
             _enableCheck(
                 provider.focusOn,
                 FocusNum.studytime,
                 TimerWidget(
                     title: '공부 시간',
-                    focusNum: FocusNum.studytime,
                     consumer: ({builder}) =>
                         TimerPrvdConsumer<StudyTimerProvider>(
                             builder: builder))),
@@ -46,7 +39,6 @@ class MainView extends StatelessWidget {
                 FocusNum.resttime,
                 TimerWidget(
                   title: '쉬는 시간',
-                  focusNum: FocusNum.resttime,
                   consumer: ({builder}) =>
                       TimerPrvdConsumer<RestTimerProvider>(builder: builder),
                 )),

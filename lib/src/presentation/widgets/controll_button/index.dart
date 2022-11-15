@@ -60,6 +60,7 @@ class ControllButtonContainer extends StatelessWidget {
     CycleOptionProvider cProvider = cycleOptionProviderOf(context);
     cProvider.setTimerStatus(TimerStatus.start);
     cProvider.setReapeatCount(cProvider.oneCycle.repeat!);
+    cProvider.isTimerStop = false;
     _studyTimerStart(context, cProvider);
     cProvider.isStudyTimerMode = true;
   }

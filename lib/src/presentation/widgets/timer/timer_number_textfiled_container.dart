@@ -50,7 +50,9 @@ class TimerNumberTextFieldContainer extends StatelessWidget {
             margin: const EdgeInsets.only(top: 20),
             child: ElevatedButton(
                 onPressed: () {
-                  focusList.firstWhere((focus) => focus.hasFocus).unfocus();
+                  focusList.firstWhere((focus) => focus.hasFocus, orElse: () {
+                    return FocusNode();
+                  }).unfocus();
                   cProvider.setTimeoutNoneFocusOn();
                 },
                 style: ElevatedButton.styleFrom(

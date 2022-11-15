@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/data/models/internal/timer.dart';
 
 class TimerProvider extends ChangeNotifier {
-  late TimerModel t;
+  TimerModel t = TimerModel();
+  FocusNum focusNum;
   late Timer timer;
-  late Duration initDuration;
-  late Function cancelNextExec;
+  late void Function() cancelNextExec;
+  late void Function(Duration) _setTime;
+  set setTime(void Function(Duration) setTime) => _setTime = setTime;
 
-  void setTimerModel(TimerModel model) {
-    t = model;
-    initDuration = model.getDuration();
-  }
+  TimerProvider(this.focusNum);
 
   _notify() async {
-    t.setTime(t.getDuration());
+    _setTime(t.getDuration());
     notifyListeners();
   }
 
@@ -33,7 +33,7 @@ class TimerProvider extends ChangeNotifier {
     _notify();
   }
 
-  void start(Duration time, {required Function cancelNextExecFor}) {
+  void start(Duration time, {required void Function() cancelNextExecFor}) {
     int seconds = time.inSeconds;
     cancelNextExec = cancelNextExecFor;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -63,9 +63,9 @@ class TimerProvider extends ChangeNotifier {
 }
 
 class StudyTimerProvider extends TimerProvider {
-  StudyTimerProvider() : super();
+  StudyTimerProvider() : super(FocusNum.studytime);
 }
 
 class RestTimerProvider extends TimerProvider {
-  RestTimerProvider() : super();
+  RestTimerProvider() : super(FocusNum.resttime);
 }

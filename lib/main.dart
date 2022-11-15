@@ -21,11 +21,23 @@ class MyApp extends StatelessWidget {
       ),
       title: kMaterialAppTitle,
       home: MultiProvider(providers: [
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<CycleOptionProvider>(
           create: (_) => CycleOptionProvider(),
         ),
-        ChangeNotifierProvider(create: (_) => StudyTimerProvider()),
-        ChangeNotifierProvider(create: (_) => RestTimerProvider()),
+        ChangeNotifierProxyProvider<CycleOptionProvider, StudyTimerProvider>(
+            create: (BuildContext context) => StudyTimerProvider(),
+            update: (BuildContext context, CycleOptionProvider cProvider,
+                StudyTimerProvider? tProvider) {
+              tProvider!.setTime = cProvider.setRestTime;
+              return tProvider;
+            }),
+        ChangeNotifierProxyProvider<CycleOptionProvider, RestTimerProvider>(
+            create: (BuildContext context) => RestTimerProvider(),
+            update: (BuildContext context, CycleOptionProvider cProvider,
+                RestTimerProvider? tProvider) {
+              tProvider!.setTime = cProvider.setRestTime;
+              return tProvider;
+            }),
       ], child: const MainView()),
     );
   }

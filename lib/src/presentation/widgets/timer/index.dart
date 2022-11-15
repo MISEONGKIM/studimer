@@ -10,12 +10,11 @@ class TimerWidget<T> extends StatelessWidget {
   const TimerWidget({
     Key? key,
     required this.title,
-    required this.focusNum,
     required this.consumer,
   }) : super(key: key);
   final String title;
-  final FocusNum focusNum;
   final Widget Function({dynamic builder}) consumer;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +30,6 @@ class TimerWidget<T> extends StatelessWidget {
                 ? provider.focusOn == FocusNum.none
                     ? TimerNumberPickerContainer(
                         consumer: consumer,
-                        focusNum: focusNum,
                       )
                     : TimerNumberTextFieldContainer(
                         consumer: consumer,
