@@ -16,10 +16,6 @@ class CycleOptionProvider extends ChangeNotifier {
   bool isTimerStop = false;
   bool isTimerBtnDisabled = true;
 
-  CycleOptionProvider() {
-    checkIsTimeBtnDisabled();
-  }
-
   setFocusOn(FocusNum value) {
     if (timerStatus != TimerStatus.cancel) return;
     focusOn = value;
@@ -50,7 +46,6 @@ class CycleOptionProvider extends ChangeNotifier {
 
   setRestTime(Duration newTime) {
     oneCycle.restTime = newTime;
-    checkIsTimeBtnDisabled();
   }
 
   setRepeat(int value) {

@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => StudyTimerProvider(),
             update: (BuildContext context, CycleOptionProvider cProvider,
                 StudyTimerProvider? tProvider) {
-              tProvider!.setTime = cProvider.setRestTime;
+              tProvider!.setTime = cProvider.setStudyTime;
               return tProvider;
             }),
         ChangeNotifierProxyProvider<CycleOptionProvider, RestTimerProvider>(
