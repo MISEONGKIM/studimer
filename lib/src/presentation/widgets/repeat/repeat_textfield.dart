@@ -30,13 +30,7 @@ class RepeatTextField extends StatelessWidget {
             onFieldSubmitted: (term) {
               _fieldFocusChange(provider, stringToInt(term));
             },
-            onTap: provider.focusOn == FocusNum.none
-                ? () {
-                    provider.setFocusOn(FocusNum.repeat);
-                  }
-                : null,
             initialValue: provider.oneCycle.repeat.toString(),
-            readOnly: provider.timerStatus != TimerStatus.cancel,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
           )),
