@@ -29,6 +29,7 @@ class ControllButtonContainer extends StatelessWidget {
     final sProvider = timerProviderOf<StudyTimerProvider>(context);
     sProvider.start(cProvider.oneCycle.studyTime, cancelNextExecFor: () {
       cProvider.alarmStart(() {
+        if (cProvider.timerStatus == TimerStatus.cancel) return;
         sProvider.setTimerTime(cProvider.oneCycle.studyTime);
         if (cProvider.oneCycle.restTime != Duration.zero) {
           cProvider.isStudyTimerMode = !cProvider.isStudyTimerMode;
@@ -49,6 +50,7 @@ class ControllButtonContainer extends StatelessWidget {
   _restTimerStart(BuildContext context, CycleOptionProvider cProvider) {
     final rProvider = timerProviderOf<RestTimerProvider>(context);
     rProvider.start(cProvider.oneCycle.restTime, cancelNextExecFor: () {
+      if (cProvider.timerStatus == TimerStatus.cancel) return;
       cProvider.alarmStart(() {
         rProvider.setTimerTime(cProvider.oneCycle.restTime);
         cProvider.isStudyTimerMode = !cProvider.isStudyTimerMode;
