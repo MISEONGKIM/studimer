@@ -4,7 +4,7 @@ import 'package:studimer/src/core/common/time_textfiled_formatter.dart';
 import 'package:studimer/src/core/utils/func.dart';
 
 class TimerNumberTextField extends StatelessWidget {
-  TimerNumberTextField({
+  const TimerNumberTextField({
     Key? key,
     required this.initialValue,
     required this.maxValue,

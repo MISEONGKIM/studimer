@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/data/models/internal/alarm.dart';
@@ -22,6 +24,13 @@ class CycleOptionProvider extends ChangeNotifier {
     if (timerStatus != TimerStatus.cancel) return;
     focusOn = value;
     notifyListeners();
+  }
+
+  setTimeoutNoneFocusOn() {
+    Timer(const Duration(milliseconds: 150), () {
+      focusOn = FocusNum.none;
+      notifyListeners();
+    });
   }
 
   checkIsTimeBtnDisabled() {

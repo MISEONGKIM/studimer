@@ -1,19 +1,15 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/core/utils/func.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
 
 class RepeatTextField extends StatelessWidget {
-  const RepeatTextField({Key? key, required this.provider}) : super(key: key);
+  RepeatTextField({Key? key, required this.provider}) : super(key: key);
   final CycleOptionProvider provider;
-
+  final FocusNode focus = FocusNode();
   _fieldFocusChange(CycleOptionProvider provider, int value) {
     provider.setRepeat(value > 0 ? value : 1);
-    Timer(const Duration(milliseconds: 200), () {
-      provider.setFocusOn(FocusNum.none);
-    });
+    provider.setTimeoutNoneFocusOn();
   }
 
   @override
@@ -28,6 +24,7 @@ class RepeatTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(7),
           ),
           child: TextFormField(
+            focusNode: focus,
             style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
@@ -48,7 +45,10 @@ class RepeatTextField extends StatelessWidget {
               width: double.infinity,
               margin: const EdgeInsets.only(top: 20),
               child: ElevatedButton(
-                  onPressed: () => provider.setFocusOn(FocusNum.none),
+                  onPressed: () {
+                    focus.unfocus();
+                    provider.setTimeoutNoneFocusOn();
+                  },
                   style: ElevatedButton.styleFrom(
                       fixedSize: const Size.fromHeight(50),
                       foregroundColor: Colors.white,
