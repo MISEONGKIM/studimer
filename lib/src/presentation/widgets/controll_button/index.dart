@@ -26,9 +26,10 @@ class ControllButtonContainer extends StatelessWidget {
   }
 
   _studyTimerStart(BuildContext context, CycleOptionProvider cProvider) {
-    final tProvider = timerProviderOf<StudyTimerProvider>(context);
-    tProvider.start(cProvider.oneCycle.studyTime, cancelNextExecFor: () {
+    final sProvider = timerProviderOf<StudyTimerProvider>(context);
+    sProvider.start(cProvider.oneCycle.studyTime, cancelNextExecFor: () {
       cProvider.alarmStart(() {
+        sProvider.setTimerTime(cProvider.oneCycle.studyTime);
         if (cProvider.oneCycle.restTime != Duration.zero) {
           cProvider.isStudyTimerMode = !cProvider.isStudyTimerMode;
           _restTimerStart(context, cProvider);
@@ -40,18 +41,22 @@ class ControllButtonContainer extends StatelessWidget {
 
       if (cProvider.oneCycle.restTime != Duration.zero ||
           cProvider.repeatCount > 1) return;
+      sProvider.setTimerTime(cProvider.oneCycle.studyTime);
       _clearTimerStatusAndMode(cProvider);
     });
   }
 
   _restTimerStart(BuildContext context, CycleOptionProvider cProvider) {
-    timerProviderOf<RestTimerProvider>(context)
-        .start(cProvider.oneCycle.restTime, cancelNextExecFor: () {
+    final rProvider = timerProviderOf<RestTimerProvider>(context);
+    rProvider.start(cProvider.oneCycle.restTime, cancelNextExecFor: () {
       cProvider.alarmStart(() {
+        rProvider.setTimerTime(cProvider.oneCycle.restTime);
         cProvider.isStudyTimerMode = !cProvider.isStudyTimerMode;
+
         _notifyAfterFuncFor(context, cProvider);
       });
       if (cProvider.repeatCount > 1) return;
+      rProvider.setTimerTime(cProvider.oneCycle.restTime);
       _clearTimerStatusAndMode(cProvider);
     });
   }
@@ -67,11 +72,17 @@ class ControllButtonContainer extends StatelessWidget {
 
   _cancelOnPressed(BuildContext context) {
     final cProvider = cycleOptionProviderOf(context);
+    final sProvider = timerProviderOf<StudyTimerProvider>(context);
+    final rProvider = timerProviderOf<RestTimerProvider>(context);
     cProvider.isStudyTimerMode
-        ? timerProviderOf<StudyTimerProvider>(context).cancel(
-            cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel))
-        : timerProviderOf<RestTimerProvider>(context).cancel(
-            cancelNextExec: () => cProvider.setTimerStatus(TimerStatus.cancel));
+        ? sProvider.cancel(cancelNextExec: () {
+            sProvider.setTimerTime(cProvider.oneCycle.studyTime);
+            cProvider.setTimerStatus(TimerStatus.cancel);
+          })
+        : rProvider.cancel(cancelNextExec: () {
+            rProvider.setTimerTime(cProvider.oneCycle.restTime);
+            cProvider.setTimerStatus(TimerStatus.cancel);
+          });
     cProvider.isStudyTimerMode = false;
   }
 

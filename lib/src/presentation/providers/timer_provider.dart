@@ -39,7 +39,7 @@ class TimerProvider extends ChangeNotifier {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       seconds -= 1;
       print(seconds);
-      t.durationConvert(Duration(seconds: seconds));
+      setTimerTime(Duration(seconds: seconds));
       notifyListeners();
       if (seconds == 0) {
         cancel(cancelNextExec: cancelNextExec);
@@ -58,6 +58,11 @@ class TimerProvider extends ChangeNotifier {
       timer.cancel();
     }
     cancelNextExec();
+    notifyListeners();
+  }
+
+  void setTimerTime(Duration time) {
+    t.durationConvert(time);
     notifyListeners();
   }
 }
