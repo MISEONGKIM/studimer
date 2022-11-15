@@ -33,30 +33,9 @@ class TimerWidget<T> extends StatelessWidget {
                         consumer: consumer,
                         focusNum: focusNum,
                       )
-                    : Column(children: [
-                        TimerNumberTextFieldContainer(
-                          consumer: consumer,
-                        ),
-                        provider.focusOn == FocusNum.studytime ||
-                                provider.focusOn == FocusNum.resttime
-                            ? Container(
-                                width: double.infinity,
-                                margin: const EdgeInsets.only(top: 20),
-                                child: ElevatedButton(
-                                    onPressed: () =>
-                                        provider.setFocusOn(FocusNum.none),
-                                    style: ElevatedButton.styleFrom(
-                                        fixedSize: const Size.fromHeight(50),
-                                        foregroundColor: Colors.white,
-                                        backgroundColor: Colors.blueGrey[400]),
-                                    child: const Text(
-                                      '취소',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    )))
-                            : const SizedBox.shrink()
-                      ])
+                    : TimerNumberTextFieldContainer(
+                        consumer: consumer,
+                      )
                 : TimerTextContainer(
                     consumer: consumer,
                   );
