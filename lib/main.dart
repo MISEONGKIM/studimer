@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studimer/src/core/utils/constants.dart';
+import 'package:studimer/src/data/models/internal/backgound_service.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
 import 'package:studimer/src/presentation/providers/timer_provider.dart';
 import 'package:studimer/src/presentation/views/main_view.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  BackGroundService.initBackGroundService();
   runApp(const MyApp());
 }
 

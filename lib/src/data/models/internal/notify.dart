@@ -34,7 +34,7 @@ class Notify {
         )));
   }
 
-  static Future<void> createTimerShow({required String content}) async {
+  static Future<void> showTimerNotify({required String content}) async {
     await flutterLocalNotificationsPlugin.show(
         1,
         '곰스터디머',
@@ -48,7 +48,7 @@ class Notify {
         )));
   }
 
-  static cancleTimerShow() {
+  static cancleTimerNotify() {
     flutterLocalNotificationsPlugin.cancel(1);
   }
 }

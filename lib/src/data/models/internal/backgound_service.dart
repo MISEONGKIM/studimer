@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 
 import 'notify.dart';
@@ -10,18 +9,16 @@ class BackGroundService {
   @pragma('vm:entry-point')
   static void _serviceStart(ServiceInstance instance) async {
     DartPluginRegistrant.ensureInitialized();
-    Notify.flutterLocalNotificationsPlugin
-        .initialize(Notify.initializationSettings);
     instance.on('timer').listen((event) async {
-      Notify.createTimerShow(content: event!['timer'].toString());
+      Notify.showTimerNotify(content: event!['timer'].toString());
     });
     instance.on('stop').listen((event) {
-      Notify.cancleTimerShow();
+      Notify.cancleTimerNotify();
+      instance.stopSelf();
     });
   }
 
-  static startBackGroundService() async {
-    WidgetsFlutterBinding.ensureInitialized();
+  static initBackGroundService() async {
     service = FlutterBackgroundService();
     await service.configure(
       androidConfiguration: AndroidConfiguration(
@@ -33,6 +30,14 @@ class BackGroundService {
         autoStart: false,
       ),
     );
+  }
+
+  static startBackGroundService(String timer) async {
+    print((await service.isRunning()));
+    if ((await service.isRunning())) return;
+    Notify.flutterLocalNotificationsPlugin
+        .initialize(Notify.initializationSettings);
+    Notify.showTimerNotify(content: timer);
     service.startService();
   }
 

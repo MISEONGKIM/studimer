@@ -39,7 +39,7 @@ class TimerProvider extends ChangeNotifier {
     int seconds = time.inSeconds;
     cancelNextExec = cancelNextExecFor;
 
-    await BackGroundService.startBackGroundService();
+    await BackGroundService.startBackGroundService(t.getTimeFormatterString());
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       seconds -= 1;
       BackGroundService.timerBackGroundService(t.getTimeFormatterString());
