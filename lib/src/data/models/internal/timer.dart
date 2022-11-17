@@ -20,4 +20,8 @@ class TimerModel {
   Duration getDuration() {
     return Duration(hours: hour, minutes: minuate, seconds: second);
   }
+
+  String getTimeFormatterString() {
+    return '${lpadZeroFormatter(hour)}:${lpadZeroFormatter(minuate)}:${lpadZeroFormatter(second)}';
+  }
 }

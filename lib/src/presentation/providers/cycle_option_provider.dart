@@ -11,7 +11,6 @@ class CycleOptionProvider extends ChangeNotifier {
   FocusNum focusOn = FocusNum.none;
   TimerStatus timerStatus = TimerStatus.cancel;
   late int repeatCount;
-  late Notify notify;
   bool isStudyTimerMode = false;
   bool isTimerStop = false;
   bool isTimerBtnDisabled = true;
@@ -76,11 +75,13 @@ class CycleOptionProvider extends ChangeNotifier {
             : repeatCount == 1
                 ? '타이머 종료-! 대단하구만! ☝(｀ط´≠)'
                 : '공부하쟈 ~ ₍ᐢ.ˬ.ᐢ₎❤️';
-    notify = Notify(notifyAfterExecuteFunc: () {
-      oneCycle.alarm.stopAlarm(oneCycle.alarm.alarmCode);
-      notifyAfterFunction();
-    });
-    notify.create(notifyContent);
+
+    Notify.createAlarm(
+        notifyAfterExecuteFunc: () {
+          oneCycle.alarm.stopAlarm(oneCycle.alarm.alarmCode);
+          notifyAfterFunction();
+        },
+        content: notifyContent);
     oneCycle.alarm.startAlarm(oneCycle.alarm.alarmCode);
   }
 }

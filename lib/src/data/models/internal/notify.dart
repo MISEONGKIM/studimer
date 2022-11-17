@@ -1,40 +1,54 @@
 import 'dart:math';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/data/latest_all.dart' as tz;
 
 class Notify {
-  late final AndroidInitializationSettings _initializationSettingsAndroid;
-  late final InitializationSettings _initializationSettings;
-  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
+  static const AndroidInitializationSettings _initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+  static const InitializationSettings initializationSettings =
+      InitializationSettings(android: _initializationSettingsAndroid);
+  static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  Notify({required Function notifyAfterExecuteFunc}) {
-    _initializationSettingsAndroid =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
-    _initializationSettings =
-        InitializationSettings(android: _initializationSettingsAndroid);
-    _flutterLocalNotificationsPlugin.initialize(
-      _initializationSettings,
+  static Future<void> createAlarm(
+      {required Function notifyAfterExecuteFunc,
+      required String content}) async {
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
       onDidReceiveNotificationResponse: (NotificationResponse details) {
         notifyAfterExecuteFunc();
       },
     );
-    tz.initializeTimeZones();
-  }
 
-  Future<void> create(String content) async {
-    await _flutterLocalNotificationsPlugin.show(
+    await flutterLocalNotificationsPlugin.show(
         Random().nextInt(pow(2, 31) as int),
         '곰스터디머',
         content,
         const NotificationDetails(
             android: AndroidNotificationDetails(
-          'your channel id',
-          'your channel name',
+          'alarm',
+          'alarm',
           importance: Importance.max,
           priority: Priority.high,
           playSound: true,
         )));
+  }
+
+  static Future<void> createTimerShow({required String content}) async {
+    await flutterLocalNotificationsPlugin.show(
+        1,
+        '곰스터디머',
+        content,
+        const NotificationDetails(
+            android: AndroidNotificationDetails(
+          'timer',
+          'timer',
+          playSound: false,
+          ongoing: true,
+        )));
+  }
+
+  static cancleTimerShow() {
+    flutterLocalNotificationsPlugin.cancel(1);
   }
 }

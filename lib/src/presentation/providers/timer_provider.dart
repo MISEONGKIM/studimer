@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/resources/type.dart';
+import 'package:studimer/src/data/models/internal/backgound_service.dart';
 import 'package:studimer/src/data/models/internal/timer.dart';
 
 class TimerProvider extends ChangeNotifier {
@@ -33,12 +34,16 @@ class TimerProvider extends ChangeNotifier {
     _notify();
   }
 
-  void start(Duration time, {required void Function() cancelNextExecFor}) {
+  void start(Duration time,
+      {required void Function() cancelNextExecFor}) async {
     int seconds = time.inSeconds;
     cancelNextExec = cancelNextExecFor;
+
+    await BackGroundService.initBackGroundService();
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       seconds -= 1;
       print(seconds);
+      BackGroundService.startBackGroundService(t.getTimeFormatterString());
       setTimerTime(Duration(seconds: seconds));
       notifyListeners();
       if (seconds == 0) {
@@ -54,6 +59,7 @@ class TimerProvider extends ChangeNotifier {
   }
 
   void cancel({required Function cancelNextExec}) {
+    BackGroundService.stopBackGroundService();
     if (timer.isActive) {
       timer.cancel();
     }
