@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studimer/src/core/resources/type.dart';
-
 import 'timer_number_picker.dart';
 
 class TimerNumberPickerContainer extends StatelessWidget {

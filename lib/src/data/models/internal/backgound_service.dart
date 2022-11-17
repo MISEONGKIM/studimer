@@ -23,7 +23,6 @@ class BackGroundService {
   static startBackGroundService() async {
     WidgetsFlutterBinding.ensureInitialized();
     service = FlutterBackgroundService();
-    service.isRunning().then((value) => print(value));
     await service.configure(
       androidConfiguration: AndroidConfiguration(
         autoStart: false,
