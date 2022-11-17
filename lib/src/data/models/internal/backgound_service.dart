@@ -12,17 +12,15 @@ class BackGroundService {
     DartPluginRegistrant.ensureInitialized();
     Notify.flutterLocalNotificationsPlugin
         .initialize(Notify.initializationSettings);
-    instance.on('start').listen((event) async {
-      print('시작');
+    instance.on('timer').listen((event) async {
       Notify.createTimerShow(content: event!['timer'].toString());
     });
     instance.on('stop').listen((event) {
-      print('포기');
       Notify.cancleTimerShow();
     });
   }
 
-  static initBackGroundService() async {
+  static startBackGroundService() async {
     WidgetsFlutterBinding.ensureInitialized();
     service = FlutterBackgroundService();
     service.isRunning().then((value) => print(value));
@@ -39,8 +37,8 @@ class BackGroundService {
     service.startService();
   }
 
-  static startBackGroundService(String timer) {
-    service.invoke('start', {'timer': timer});
+  static timerBackGroundService(String timer) {
+    service.invoke('timer', {'timer': timer});
   }
 
   static stopBackGroundService() {
