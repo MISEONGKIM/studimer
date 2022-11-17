@@ -23,8 +23,9 @@ class BackGroundService {
     await service.configure(
       androidConfiguration: AndroidConfiguration(
         autoStart: false,
+        autoStartOnBoot: false,
         onStart: _serviceStart,
-        isForegroundMode: true,
+        isForegroundMode: false,
       ),
       iosConfiguration: IosConfiguration(
         autoStart: false,
