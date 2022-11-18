@@ -22,11 +22,11 @@ class BackGroundService {
     service = FlutterBackgroundService();
     await service.configure(
       androidConfiguration: AndroidConfiguration(
-        autoStart: false,
-        autoStartOnBoot: false,
-        onStart: _serviceStart,
-        isForegroundMode: false,
-      ),
+          autoStart: false,
+          autoStartOnBoot: false,
+          onStart: _serviceStart,
+          isForegroundMode: false,
+          notificationChannelId: 'timer'),
       iosConfiguration: IosConfiguration(
         autoStart: false,
       ),

@@ -44,7 +44,7 @@ class Notify {
           'timer',
           'timer',
           playSound: false,
-          ongoing: true,
+          enableVibration: false,
         )));
   }
 
