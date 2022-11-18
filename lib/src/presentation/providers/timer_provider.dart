@@ -19,18 +19,18 @@ class TimerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setHour(int value) {
-    t.hour = value;
+  void setHours(int value) {
+    t.hours = value;
     _notify();
   }
 
-  void setMinuate(int value) {
-    t.minuate = value;
+  void setMinutes(int value) {
+    t.minutes = value;
     _notify();
   }
 
-  void setSecond(int value) {
-    t.second = value;
+  void setSeconds(int value) {
+    t.seconds = value;
     _notify();
   }
 

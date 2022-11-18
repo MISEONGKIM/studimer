@@ -1,7 +1,7 @@
 class TimerModel {
-  int hour = 0;
-  int minuate = 0;
-  int second = 0;
+  int hours = 0;
+  int minutes = 0;
+  int seconds = 0;
 
   TimerModel() {
     durationConvert();
@@ -12,16 +12,16 @@ class TimerModel {
   }
 
   durationConvert([Duration duration = Duration.zero]) {
-    hour = duration.inHours;
-    minuate = duration.inMinutes.remainder(60);
-    second = duration.inSeconds.remainder(60);
+    hours = duration.inHours;
+    minutes = duration.inMinutes.remainder(60);
+    seconds = duration.inSeconds.remainder(60);
   }
 
   Duration getDuration() {
-    return Duration(hours: hour, minutes: minuate, seconds: second);
+    return Duration(hours: hours, minutes: minutes, seconds: seconds);
   }
 
   String getTimeFormatterString() {
-    return '${lpadZeroFormatter(hour)}:${lpadZeroFormatter(minuate)}:${lpadZeroFormatter(second)}';
+    return '${lpadZeroFormatter(hours)}:${lpadZeroFormatter(minutes)}:${lpadZeroFormatter(seconds)}';
   }
 }

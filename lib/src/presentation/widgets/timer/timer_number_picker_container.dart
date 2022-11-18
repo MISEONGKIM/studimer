@@ -18,23 +18,23 @@ class TimerNumberPickerContainer extends StatelessWidget {
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               TimerNumberPicker(
                   onChange: (int newValue) {
-                    provider.setHour(newValue);
+                    provider.setHours(newValue);
                   },
-                  value: provider.t.hour,
+                  value: provider.t.hours,
                   maxValue: 12,
                   focusNum: provider.focusNum),
               TimerNumberPicker(
                   onChange: (int newValue) {
-                    provider.setMinuate(newValue);
+                    provider.setMinutes(newValue);
                   },
-                  value: provider.t.minuate,
+                  value: provider.t.minutes,
                   maxValue: 59,
                   focusNum: provider.focusNum),
               TimerNumberPicker(
                   onChange: (int newValue) {
-                    provider.setSecond(newValue);
+                    provider.setSeconds(newValue);
                   },
-                  value: provider.t.second,
+                  value: provider.t.seconds,
                   maxValue: 59,
                   focusNum: provider.focusNum)
             ])));

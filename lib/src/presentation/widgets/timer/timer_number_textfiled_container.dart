@@ -31,19 +31,19 @@ class TimerNumberTextFieldContainer extends StatelessWidget {
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               TimerNumberTextField(
                   focus: focusList[0],
-                  initialValue: provider.t.hour,
+                  initialValue: provider.t.hours,
                   maxValue: 12,
                   onSubmit: _fieldFocusChange(cProvider, provider.setHour)),
               TimerNumberTextField(
                   focus: focusList[1],
-                  initialValue: provider.t.minuate,
+                  initialValue: provider.t.minutes,
                   maxValue: 59,
                   onSubmit: _fieldFocusChange(cProvider, provider.setMinuate)),
               TimerNumberTextField(
                   focus: focusList[2],
-                  initialValue: provider.t.second,
+                  initialValue: provider.t.seconds,
                   maxValue: 59,
-                  onSubmit: _fieldFocusChange(cProvider, provider.setSecond)),
+                  onSubmit: _fieldFocusChange(cProvider, provider.setSeconds)),
             ])),
         Container(
             width: double.infinity,

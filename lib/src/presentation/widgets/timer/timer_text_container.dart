@@ -27,7 +27,7 @@ class TimerTextContainer extends StatelessWidget {
               ' : ',
               style: style,
             ),
-            Text(provider.t.lpadZeroFormatter(provider.t.second), style: style)
+            Text(provider.t.lpadZeroFormatter(provider.t.seconds), style: style)
           ]));
     });
   }

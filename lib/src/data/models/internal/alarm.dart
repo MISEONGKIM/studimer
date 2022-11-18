@@ -18,11 +18,11 @@ class Alarm {
       {required this.alarmCode, required this.alarmName, required this.isUse});
 
   void _startOneMinuateVibrate() {
-    int second = 60;
+    int seconds = 60;
     vibrationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      second -= 1;
+      seconds -= 1;
       Vibration.vibrate(pattern: [500, 1000]);
-      if (second == 0) {
+      if (seconds == 0) {
         timer.cancel();
       }
     });
