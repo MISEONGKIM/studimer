@@ -8,7 +8,7 @@ class TimerTextContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return consumer(builder: (context, provider) {
       const style = TextStyle(
-        fontSize: 70,
+        fontSize: 60,
         fontWeight: FontWeight.bold,
       );
 

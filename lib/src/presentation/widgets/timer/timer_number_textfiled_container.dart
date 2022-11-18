@@ -28,7 +28,7 @@ class TimerNumberTextFieldContainer extends StatelessWidget {
               color: Colors.white12,
               borderRadius: BorderRadius.circular(7),
             ),
-            child: Row(children: [
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               TimerNumberTextField(
                   focus: focusList[0],
                   initialValue: provider.t.hour,

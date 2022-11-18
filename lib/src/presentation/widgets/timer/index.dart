@@ -19,7 +19,7 @@ class TimerWidget<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(bottom: 20),
-        child: Column(children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             title,
             style: const TextStyle(

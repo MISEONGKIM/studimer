@@ -15,7 +15,7 @@ class TimerNumberPickerContainer extends StatelessWidget {
               color: Colors.white12,
               borderRadius: BorderRadius.circular(7),
             ),
-            child: Row(children: [
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               TimerNumberPicker(
                   onChange: (int newValue) {
                     provider.setHour(newValue);
