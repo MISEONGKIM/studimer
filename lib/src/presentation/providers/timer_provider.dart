@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/data/models/internal/backgound_service.dart';
@@ -7,6 +8,7 @@ import 'package:studimer/src/data/models/internal/timer.dart';
 class TimerProvider extends ChangeNotifier {
   TimerModel t = TimerModel();
   FocusNum focusNum;
+  int timerNotifyId = Random().nextInt(pow(2, 31) as int);
   late Timer timer;
   late void Function() cancelNextExec;
   late void Function(Duration) _setTime;
@@ -34,15 +36,24 @@ class TimerProvider extends ChangeNotifier {
     _notify();
   }
 
+  void setTimerNotifyId() {
+    timerNotifyId = Random().nextInt(pow(2, 31) as int);
+  }
+
   void start(Duration time,
-      {required void Function() cancelNextExecFor}) async {
+      {required void Function() cancelNextExecFor,
+      bool isOnPressedStop = false}) async {
     int seconds = time.inSeconds;
     cancelNextExec = cancelNextExecFor;
 
-    await BackGroundService.startBackGroundService(t.getTimeFormatterString());
+    if (!isOnPressedStop) {
+      await BackGroundService.startBackGroundService(
+          timerNotifyId, t.getTimeFormatterString());
+    }
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       seconds -= 1;
-      BackGroundService.timerBackGroundService(t.getTimeFormatterString());
+      BackGroundService.timerBackGroundService(
+          timerNotifyId, t.getTimeFormatterString());
       setTimerTime(Duration(seconds: seconds));
       notifyListeners();
       if (seconds == 0) {
@@ -53,12 +64,13 @@ class TimerProvider extends ChangeNotifier {
 
   void stop(bool isStop) {
     isStop
-        ? start(t.getDuration(), cancelNextExecFor: cancelNextExec)
+        ? start(t.getDuration(),
+            cancelNextExecFor: cancelNextExec, isOnPressedStop: true)
         : timer.cancel();
   }
 
   void cancel({required Function cancelNextExec}) {
-    BackGroundService.stopBackGroundService();
+    BackGroundService.stopBackGroundService(timerNotifyId);
     if (timer.isActive) {
       timer.cancel();
     }

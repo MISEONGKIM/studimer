@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/data/models/internal/alarm.dart';

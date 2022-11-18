@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'notify.dart';
 
@@ -10,10 +11,10 @@ class BackGroundService {
   static void _serviceStart(ServiceInstance instance) async {
     DartPluginRegistrant.ensureInitialized();
     instance.on('timer').listen((event) async {
-      Notify.showTimerNotify(content: event!['timer'].toString());
+      Notify.showTimerNotify(event!['id'], content: event!['timer'].toString());
     });
     instance.on('stop').listen((event) {
-      Notify.cancleTimerNotify();
+      Notify.cancleTimerNotify(event!['id']);
       instance.stopSelf();
     });
   }
@@ -33,19 +34,20 @@ class BackGroundService {
     );
   }
 
-  static startBackGroundService(String timer) async {
-    if ((await service.isRunning())) return;
+  static startBackGroundService(int id, String timer) async {
+    Notify.flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
     Notify.flutterLocalNotificationsPlugin
         .initialize(Notify.initializationSettings);
-    Notify.showTimerNotify(content: timer);
+    Notify.showTimerNotify(id, content: timer);
     service.startService();
   }
 
-  static timerBackGroundService(String timer) {
-    service.invoke('timer', {'timer': timer});
+  static timerBackGroundService(int id, String timer) {
+    service.invoke('timer', {'timer': timer, 'id': id});
   }
 
-  static stopBackGroundService() {
-    service.invoke('stop');
+  static stopBackGroundService(int id) {
+    service.invoke('stop', {'id': id});
   }
 }

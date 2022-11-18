@@ -7,7 +7,7 @@ class Notify {
       AndroidInitializationSettings('@mipmap/ic_launcher');
   static const InitializationSettings initializationSettings =
       InitializationSettings(android: _initializationSettingsAndroid);
-  static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
   static Future<void> createAlarm(
@@ -34,9 +34,9 @@ class Notify {
         )));
   }
 
-  static Future<void> showTimerNotify({required String content}) async {
+  static Future<void> showTimerNotify(int id, {required String content}) async {
     await flutterLocalNotificationsPlugin.show(
-        1,
+        id,
         '곰스터디머',
         content,
         const NotificationDetails(
@@ -48,7 +48,7 @@ class Notify {
         )));
   }
 
-  static cancleTimerNotify() {
-    flutterLocalNotificationsPlugin.cancel(1);
+  static cancleTimerNotify(int id) {
+    flutterLocalNotificationsPlugin.cancel(id);
   }
 }
