@@ -23,7 +23,7 @@ class MainView extends StatelessWidget {
         title: const Text('곰스터디머'),
       ),
       body: Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(20),
         child: CycleOptionPrvdConsumer(builder: (context, provider) {
           return Column(children: [
             _enableCheck(

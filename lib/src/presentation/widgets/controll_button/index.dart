@@ -114,6 +114,9 @@ class ControllButtonContainer extends StatelessWidget {
                                 buttonText: provider.isTimerStop ? '재시작' : '중지',
                                 onPressed: () =>
                                     _stopOnPressed(context, provider))),
+                        const SizedBox(
+                          width: 6,
+                        ),
                         Expanded(
                             child: CancelButton(
                                 onPressed: () => _cancelOnPressed(context)))
