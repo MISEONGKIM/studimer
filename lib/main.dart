@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
             update: (BuildContext context, CycleOptionProvider cProvider,
                 StudyTimerProvider? tProvider) {
               tProvider!.setTime = cProvider.setStudyTime;
+              tProvider.t.durationConvert(cProvider.oneCycle.studyTime);
               return tProvider;
             }),
         ChangeNotifierProxyProvider<CycleOptionProvider, RestTimerProvider>(
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
             update: (BuildContext context, CycleOptionProvider cProvider,
                 RestTimerProvider? tProvider) {
               tProvider!.setTime = cProvider.setRestTime;
+              tProvider.t.durationConvert(cProvider.oneCycle.restTime);
               return tProvider;
             }),
       ], child: const MainView()),

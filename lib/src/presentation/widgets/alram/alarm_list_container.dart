@@ -11,7 +11,7 @@ class AlarmListContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CycleOptionPrvdConsumer(
       builder: (context, provider) => provider.focusOn == FocusNum.notice
-          ? AlarmList(initValue: provider.oneCycle.alarm)
+          ? const AlarmList()
           : GestureDetector(
               onTap: () {
                 provider.setFocusOn(FocusNum.notice);

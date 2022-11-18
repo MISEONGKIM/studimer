@@ -4,8 +4,7 @@ import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/data/models/internal/alarm.dart';
 
 class AlarmList extends StatelessWidget {
-  const AlarmList({Key? key, required this.initValue}) : super(key: key);
-  final Alarm initValue;
+  const AlarmList({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final provider = cycleOptionProviderOf(context);

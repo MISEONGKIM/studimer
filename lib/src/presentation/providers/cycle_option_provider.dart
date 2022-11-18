@@ -16,6 +16,22 @@ class CycleOptionProvider extends ChangeNotifier {
   bool isTimerStop = false;
   bool isTimerBtnDisabled = true;
 
+  CycleOptionProvider() {
+    _init();
+  }
+  _init() async {
+    List<String> setting = (await SharedPreferencesClass.readDisk());
+    if (setting.isEmpty) return;
+
+    oneCycle.studyTime = Duration(seconds: int.parse(setting[0]));
+    oneCycle.restTime = Duration(seconds: int.parse(setting[1]));
+    oneCycle.repeat = int.parse(setting[2]);
+    oneCycle.alarm = Alarm.noticeList
+        .firstWhere((element) => element.alarmCode.toString() == setting[3]);
+
+    notifyListeners();
+  }
+
   setFocusOn(FocusNum value) {
     if (timerStatus != TimerStatus.cancel) return;
     focusOn = value;
@@ -79,7 +95,7 @@ class CycleOptionProvider extends ChangeNotifier {
 
     Notify.createAlarm(
         notifyAfterExecuteFunc: () {
-          oneCycle.alarm.stopAlarm(oneCycle.alarm.alarmCode);
+          oneCycle.alarm!.stopAlarm(oneCycle.alarm.alarmCode);
           notifyAfterFunction();
         },
         content: notifyContent);
