@@ -65,6 +65,7 @@ class ControllButtonContainer extends StatelessWidget {
 
   _startOnPressed(BuildContext context) async {
     CycleOptionProvider cProvider = cycleOptionProviderOf(context);
+    cProvider.saveDisk();
     cProvider.setTimerStatus(TimerStatus.start);
     cProvider.setReapeatCount(cProvider.oneCycle.repeat!);
     cProvider.isTimerStop = false;

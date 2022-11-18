@@ -4,10 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/data/models/internal/alarm.dart';
 import 'package:studimer/src/data/models/internal/notify.dart';
+import 'package:studimer/src/data/models/internal/shared_preferences_class.dart';
 import 'package:studimer/src/data/models/internal/study_cycle.dart';
 
 class CycleOptionProvider extends ChangeNotifier {
-  late StudyCycle oneCycle = StudyCycle();
+  StudyCycle oneCycle = StudyCycle();
   FocusNum focusOn = FocusNum.none;
   TimerStatus timerStatus = TimerStatus.cancel;
   late int repeatCount;
@@ -83,5 +84,15 @@ class CycleOptionProvider extends ChangeNotifier {
         },
         content: notifyContent);
     oneCycle.alarm.startAlarm(oneCycle.alarm.alarmCode);
+  }
+
+  void saveDisk() {
+    List<String> value = [
+      oneCycle.studyTime.inSeconds.toString(),
+      oneCycle.restTime.inSeconds.toString(),
+      oneCycle.repeat.toString(),
+      oneCycle.alarm.alarmCode.toString()
+    ];
+    SharedPreferencesClass.saveDisk(value);
   }
 }

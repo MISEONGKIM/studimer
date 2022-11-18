@@ -20,7 +20,7 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('곰스터디머'),
+        title: const Text('곰창타이머'),
       ),
       body: Container(
         padding: const EdgeInsets.all(20),

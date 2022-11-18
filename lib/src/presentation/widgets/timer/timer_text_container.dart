@@ -16,12 +16,12 @@ class TimerTextContainer extends StatelessWidget {
           width: double.infinity,
           margin: const EdgeInsets.only(top: 10),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Text(provider.t.lpadZeroFormatter(provider.t.hour), style: style),
+            Text(provider.t.lpadZeroFormatter(provider.t.hours), style: style),
             const Text(
               ' : ',
               style: style,
             ),
-            Text(provider.t.lpadZeroFormatter(provider.t.minuate),
+            Text(provider.t.lpadZeroFormatter(provider.t.minutes),
                 style: style),
             const Text(
               ' : ',
