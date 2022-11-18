@@ -25,7 +25,7 @@ class RepeatTextField extends StatelessWidget {
           ),
           child: TextFormField(
             focusNode: focus,
-            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             textInputAction: TextInputAction.done,
             onFieldSubmitted: (term) {
               _fieldFocusChange(provider, stringToInt(term));
@@ -49,7 +49,7 @@ class RepeatTextField extends StatelessWidget {
                       backgroundColor: Colors.blueGrey[400]),
                   child: const Text(
                     '취소',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   )))
           : const SizedBox.shrink()
     ]);

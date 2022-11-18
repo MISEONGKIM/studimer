@@ -30,9 +30,9 @@ class TimerNumberPicker extends StatelessWidget {
           step: 1,
           haptics: true,
           zeroPad: true,
-          textStyle: const TextStyle(color: Colors.blueGrey, fontSize: 20),
+          textStyle: const TextStyle(color: Colors.blueGrey, fontSize: 17),
           selectedTextStyle:
-              const TextStyle(color: Colors.amberAccent, fontSize: 20),
+              const TextStyle(color: Colors.amberAccent, fontSize: 17),
           onChanged: (value) => onChange(value),
           infiniteLoop: true,
         ));

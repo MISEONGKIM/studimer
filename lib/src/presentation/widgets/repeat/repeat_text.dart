@@ -21,7 +21,7 @@ class RepeatText extends StatelessWidget {
               ? provider.oneCycle.repeat.toString()
               : provider.repeatCount.toString(),
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ));
   }
 }

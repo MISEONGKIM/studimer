@@ -29,7 +29,7 @@ class AlarmList extends StatelessWidget {
                         child: Text(
                           e.alarmName,
                           style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: 15, fontWeight: FontWeight.bold),
                         ))))
                 .toList(),
             Container(
@@ -43,7 +43,7 @@ class AlarmList extends StatelessWidget {
                     child: const Text(
                       '뒤로 가기',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     )))
           ],
         ));

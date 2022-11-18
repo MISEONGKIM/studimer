@@ -13,7 +13,7 @@ class StartButton extends StatelessWidget {
                 disabledBackgroundColor: Colors.grey,
                 foregroundColor: Colors.white,
                 textStyle:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 backgroundColor: Colors.green[600]),
             onPressed: provider.isTimerBtnDisabled ? null : () => onPressed(),
             child: const Text('You Can Do It !')));

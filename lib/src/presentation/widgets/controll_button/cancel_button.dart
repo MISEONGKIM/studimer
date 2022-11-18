@@ -11,7 +11,7 @@ class CancelButton extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             foregroundColor: Colors.white,
             textStyle:
-                const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             backgroundColor: Colors.brown),
         onPressed: () => onPressed(),
         child: const Text(

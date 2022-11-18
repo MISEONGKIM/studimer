@@ -22,11 +22,11 @@ class BackGroundService {
     service = FlutterBackgroundService();
     await service.configure(
       androidConfiguration: AndroidConfiguration(
-          autoStart: false,
-          autoStartOnBoot: false,
-          onStart: _serviceStart,
-          isForegroundMode: false,
-          notificationChannelId: 'timer'),
+        autoStart: false,
+        autoStartOnBoot: false,
+        onStart: _serviceStart,
+        isForegroundMode: false,
+      ),
       iosConfiguration: IosConfiguration(
         autoStart: false,
       ),
@@ -34,7 +34,6 @@ class BackGroundService {
   }
 
   static startBackGroundService(String timer) async {
-    print((await service.isRunning()));
     if ((await service.isRunning())) return;
     Notify.flutterLocalNotificationsPlugin
         .initialize(Notify.initializationSettings);

@@ -32,6 +32,6 @@ class TimerNumberTextField extends StatelessWidget {
             textAlign: TextAlign.center,
             keyboardType: TextInputType.number,
             initialValue: initialValue.toString(),
-            style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold)));
+            style: const TextStyle(fontSize: 27, fontWeight: FontWeight.bold)));
   }
 }

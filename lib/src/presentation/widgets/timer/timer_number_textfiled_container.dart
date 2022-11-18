@@ -61,7 +61,7 @@ class TimerNumberTextFieldContainer extends StatelessWidget {
                     backgroundColor: Colors.blueGrey[400]),
                 child: const Text(
                   '취소',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 )))
       ]);
     });
