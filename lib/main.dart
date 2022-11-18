@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/core/utils/constants.dart';
 import 'package:studimer/src/data/models/internal/backgound_service.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
@@ -30,15 +31,21 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => StudyTimerProvider(),
             update: (BuildContext context, CycleOptionProvider cProvider,
                 StudyTimerProvider? tProvider) {
-              tProvider!.setTime = cProvider.setStudyTime;
-              return tProvider;
+              if (cProvider.timerStatus == TimerStatus.cancel) {
+                tProvider!.setTime = cProvider.setStudyTime;
+                tProvider.t.durationConvert(cProvider.oneCycle.studyTime);
+              }
+              return tProvider!;
             }),
         ChangeNotifierProxyProvider<CycleOptionProvider, RestTimerProvider>(
             create: (BuildContext context) => RestTimerProvider(),
             update: (BuildContext context, CycleOptionProvider cProvider,
                 RestTimerProvider? tProvider) {
-              tProvider!.setTime = cProvider.setRestTime;
-              return tProvider;
+              if (cProvider.timerStatus == TimerStatus.cancel) {
+                tProvider!.setTime = cProvider.setRestTime;
+                tProvider.t.durationConvert(cProvider.oneCycle.restTime);
+              }
+              return tProvider!;
             }),
       ], child: const MainView()),
     );

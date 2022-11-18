@@ -7,15 +7,13 @@ import 'package:vibration/vibration.dart';
 class Alarm {
   final NoticeType alarmCode;
   final String alarmName;
-  final bool isUse;
   late Timer vibrationTimer;
   static List<Alarm> noticeList = [
-    Alarm(alarmCode: NoticeType.vivration, alarmName: '진동', isUse: true),
-    Alarm(alarmCode: NoticeType.sounds, alarmName: '소리', isUse: false)
+    Alarm(alarmCode: NoticeType.vivration, alarmName: '진동'),
+    Alarm(alarmCode: NoticeType.sounds, alarmName: '소리')
   ];
 
-  Alarm(
-      {required this.alarmCode, required this.alarmName, required this.isUse});
+  Alarm({required this.alarmCode, required this.alarmName});
 
   void _startOneMinuateVibrate() {
     int seconds = 60;
