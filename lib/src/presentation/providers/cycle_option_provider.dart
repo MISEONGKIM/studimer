@@ -43,6 +43,13 @@ class CycleOptionProvider extends ChangeNotifier {
     });
   }
 
+  setTimeoutTimerCancle() {
+    Timer(const Duration(milliseconds: 150), () {
+      timerStatus = TimerStatus.cancel;
+      notifyListeners();
+    });
+  }
+
   checkIsTimeBtnDisabled() {
     isTimerBtnDisabled = oneCycle.studyTime == Duration.zero;
     notifyListeners();

@@ -82,12 +82,11 @@ class ControllButtonContainer extends StatelessWidget {
     cProvider.isStudyTimerMode
         ? sProvider.cancel(cancelNextExec: () {
             sProvider.setTimerTime(cProvider.oneCycle.studyTime);
-            cProvider.setTimerStatus(TimerStatus.cancel);
           })
         : rProvider.cancel(cancelNextExec: () {
             rProvider.setTimerTime(cProvider.oneCycle.restTime);
-            cProvider.setTimerStatus(TimerStatus.cancel);
           });
+    cProvider.setTimeoutTimerCancle();
     cProvider.isStudyTimerMode = false;
   }
 
