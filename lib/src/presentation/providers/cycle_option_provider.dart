@@ -64,6 +64,7 @@ class CycleOptionProvider extends ChangeNotifier {
 
   setRepeat(int value) {
     oneCycle.repeat = value;
+    notifyListeners();
   }
 
   setAlarm(Alarm value) {

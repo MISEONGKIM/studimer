@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/core/utils/func.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
 
@@ -34,24 +33,22 @@ class RepeatTextField extends StatelessWidget {
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
           )),
-      provider.focusOn == FocusNum.repeat
-          ? Container(
-              width: double.infinity,
-              margin: const EdgeInsets.only(top: 20),
-              child: ElevatedButton(
-                  onPressed: () {
-                    focus.unfocus();
-                    provider.setTimeoutNoneFocusOn();
-                  },
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: const Size.fromHeight(50),
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.blueGrey[400]),
-                  child: const Text(
-                    '취소',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  )))
-          : const SizedBox.shrink()
+      Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(top: 20),
+          child: ElevatedButton(
+              onPressed: () {
+                focus.unfocus();
+                provider.setTimeoutNoneFocusOn();
+              },
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size.fromHeight(50),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blueGrey[400]),
+              child: const Text(
+                '취소',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              )))
     ]);
   }
 }

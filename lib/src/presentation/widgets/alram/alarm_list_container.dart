@@ -18,6 +18,8 @@ class AlarmListContainer extends StatelessWidget {
               },
               child: Container(
                   width: double.infinity,
+                  height: 90,
+                  alignment: Alignment.center,
                   margin: const EdgeInsets.only(top: 10),
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -28,7 +30,7 @@ class AlarmListContainer extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold)))),
     );
   }

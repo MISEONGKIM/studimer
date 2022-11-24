@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studimer/src/core/resources/type.dart';
 import 'package:studimer/src/presentation/providers/cycle_option_provider.dart';
 
 class RepeatText extends StatelessWidget {
@@ -10,6 +9,8 @@ class RepeatText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity,
+        height: 90,
+        alignment: Alignment.center,
         margin: const EdgeInsets.only(top: 10),
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
@@ -17,11 +18,9 @@ class RepeatText extends StatelessWidget {
           borderRadius: BorderRadius.circular(7),
         ),
         child: Text(
-          provider.timerStatus == TimerStatus.cancel
-              ? provider.oneCycle.repeat.toString()
-              : provider.repeatCount.toString(),
+          provider.repeatCount.toString(),
           textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
         ));
   }
 }
