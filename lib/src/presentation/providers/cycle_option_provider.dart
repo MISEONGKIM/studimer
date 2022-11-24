@@ -84,12 +84,12 @@ class CycleOptionProvider extends ChangeNotifier {
     String notifyContent = oneCycle.restTime == Duration.zero
         ? repeatCount == 1
             ? '타이머 종료-! 대단하구만! ☝(｀ط´≠)'
-            : '공부하쟈 ~ ₍ᐢ.ˬ.ᐢ₎❤️'
+            : 'Move!Move! 다시 시작하자구 ~ ₍ᐢ.ˬ.ᐢ₎❤️'
         : isStudyTimerMode
             ? '쉬엄쉬엄해 ~ (ﾉ≧ڡ≦)💕'
             : repeatCount == 1
                 ? '타이머 종료-! 대단하구만! ☝(｀ط´≠)'
-                : '공부하쟈 ~ ₍ᐢ.ˬ.ᐢ₎❤️';
+                : 'Move!Move! 다시 시작하자구 ~ ₍ᐢ.ˬ.ᐢ₎❤️';
 
     Notify.createAlarm(
         notifyAfterExecuteFunc: () {

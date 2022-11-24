@@ -30,7 +30,7 @@ class MainView extends StatelessWidget {
                 provider.focusOn,
                 FocusNum.studytime,
                 TimerWidget(
-                    title: '공부 시간',
+                    title: '활동 시간',
                     consumer: ({builder}) =>
                         TimerPrvdConsumer<StudyTimerProvider>(
                             builder: builder))),

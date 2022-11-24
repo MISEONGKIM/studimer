@@ -11,7 +11,7 @@ class BackGroundService {
   static void _serviceStart(ServiceInstance instance) async {
     DartPluginRegistrant.ensureInitialized();
     instance.on('timer').listen((event) async {
-      Notify.showTimerNotify(event!['id'], content: event!['timer'].toString());
+      Notify.showTimerNotify(event!['id'], content: event['timer'].toString());
     });
     instance.on('stop').listen((event) {
       Notify.cancleTimerNotify(event!['id']);
