@@ -6,7 +6,7 @@ import 'timer_number_picker_container.dart';
 import 'timer_number_textfiled_container.dart';
 import 'timer_text_container.dart';
 
-class TimerWidget<T> extends StatelessWidget {
+class TimerWidget extends StatelessWidget {
   const TimerWidget({
     Key? key,
     required this.title,

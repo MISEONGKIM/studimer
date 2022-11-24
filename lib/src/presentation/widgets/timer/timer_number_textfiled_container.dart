@@ -33,12 +33,12 @@ class TimerNumberTextFieldContainer extends StatelessWidget {
                   focus: focusList[0],
                   initialValue: provider.t.hours,
                   maxValue: 12,
-                  onSubmit: _fieldFocusChange(cProvider, provider.setHour)),
+                  onSubmit: _fieldFocusChange(cProvider, provider.setHours)),
               TimerNumberTextField(
                   focus: focusList[1],
                   initialValue: provider.t.minutes,
                   maxValue: 59,
-                  onSubmit: _fieldFocusChange(cProvider, provider.setMinuate)),
+                  onSubmit: _fieldFocusChange(cProvider, provider.setMinutes)),
               TimerNumberTextField(
                   focus: focusList[2],
                   initialValue: provider.t.seconds,
