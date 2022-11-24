@@ -16,7 +16,7 @@ class Alarm {
   Alarm({required this.alarmCode, required this.alarmName});
 
   void _startOneMinuateVibrate() {
-    int seconds = 60;
+    int seconds = 30;
     vibrationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       seconds -= 1;
       Vibration.vibrate(pattern: [500, 1000]);
